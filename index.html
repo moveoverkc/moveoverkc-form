@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Move Over KC - Client Intake Form</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 2em; background-color: #f7f7f7; }
+.container { max-width: 800px; margin: 0 auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.15); }
+h1, h2 { text-align: center; color: #004d80; }
+label { display: block; margin-top: 1em; }
+.bold { font-weight: bold; }
+input[type=text], input[type=number], textarea { width: 100%; padding: 0.5em; margin-top: 0.3em; border-radius: 4px; border: 1px solid #ccc; }
+.checkbox-group label { display: block; margin-top: 0.5em; }
+.hidden { display: none; margin-left: 1em; }
+button.add-btn { margin-top: 1em; padding: 0.5em 1em; background-color: #004d80; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.notice { background-color: #e8f4ff; padding: 1em; border-radius: 6px; border: 1px solid #004d80; margin-top: 2em; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Move Over KC</h1>
+<h2>Client Intake Form</h2>
+<form action="https://formsubmit.co/moveoverkc@gmail.com" method="POST">
+<input type="hidden" name="_next" value="https://moveoverkc.github.io/moveoverkc-form/thank-you.html">
+
+<h2>Customer Information</h2>
+<label class="bold">Name <input type="text" name="Name" required></label>
+<label class="bold">Phone Number <input type="text" name="Phone" required></label>
+<label class="bold">Email Address <input type="text" name="Email" required></label>
+
+<h2>Move Details</h2>
+<label class="bold">Planned Moving Date <input type="text" name="Move Date"></label>
+<label class="bold">Preferred Start Time <input type="text" name="Start Time"></label>
+<label class="bold">Starting Address <input type="text" name="Starting Address"></label>
+<label class="bold">Ending Address <input type="text" name="Ending Address"></label>
+<label class="bold">Additional Stops <input type="text" name="Additional Stops"></label>
+
+<h2>Loading/Unloading</h2>
+<div class="checkbox-group">
+<label><input type="checkbox" id="needLoading" onchange="toggleSection('loadingSection', this)"> I will need help with Loading and/or Unloading</label>
+</div>
+<div id="loadingSection" class="hidden">
+
+<h3>Property Type & Access</h3>
+<label class="bold">Starting Location:</label>
+<div class="checkbox-group">
+<label><input type="checkbox"> Single-Floor Home</label>
+<label><input type="checkbox"> Multi-Level Home</label>
+<label><input type="checkbox"> Duplex</label>
+<label><input type="checkbox"> Townhome</label>
+<label><input type="checkbox"> Apartment</label>
+<label><input type="checkbox"> Storage Unit</label>
+<label><input type="checkbox"> Other <input type="text"></label>
+</div>
+<label class="bold">Number of Stairs <input type="number" min="0"></label>
+<div class="checkbox-group">
+<label><input type="checkbox"> Regular Elevator</label>
+<label><input type="checkbox"> Service Elevator</label>
+<label><input type="checkbox"> No Elevator</label>
+</div>
+<label class="bold">Parking Description <input type="text"></label>
+
+<label class="bold">Ending Location:</label>
+<div class="checkbox-group">
+<label><input type="checkbox"> Single-Floor Home</label>
+<label><input type="checkbox"> Multi-Level Home</label>
+<label><input type="checkbox"> Duplex</label>
+<label><input type="checkbox"> Townhome</label>
+<label><input type="checkbox"> Apartment</label>
+<label><input type="checkbox"> Storage Unit</label>
+<label><input type="checkbox"> Other <input type="text"></label>
+</div>
+<label class="bold">Number of Stairs <input type="number" min="0"></label>
+<div class="checkbox-group">
+<label><input type="checkbox"> Regular Elevator</label>
+<label><input type="checkbox"> Service Elevator</label>
+<label><input type="checkbox"> No Elevator</label>
+</div>
+<label class="bold">Parking Description <input type="text"></label>
+
+<div class="checkbox-group">
+<label class="bold"><input type="checkbox"> I need help loading</label>
+<label class="bold"><input type="checkbox"> I need help unloading</label>
+</div>
+
+<h3>Truck/Trailer</h3>
+<div class="checkbox-group">
+<label class="bold"><input type="checkbox"> I need Move Over KC to provide a truck</label>
+<label class="bold"><input type="checkbox"> I will provide my own truck or trailer</label>
+</div>
+
+<h3>Large, Heavy, or Specialty Items</h3>
+<div class="checkbox-group">
+<label><input type="checkbox"> Washer <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Dryer <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Refrigerator <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Oven <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Entertainment Center <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Couch <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Recliner <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Piano <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Table <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Chairs <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Armour <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Cabinet <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Freezer <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Mattresses</label>
+<label><input type="checkbox"> Beds</label>
+</div>
+<button type="button" class="add-btn">Add Other Item</button>
+
+<h3>Moving Equipment</h3>
+<div class="checkbox-group">
+<label><input type="checkbox"> Ratchet Straps</label>
+<label><input type="checkbox"> Moving Blankets</label>
+<label><input type="checkbox"> Mattress Bags</label>
+</div>
+</div>
+
+<h2>Packing/Unpacking</h2>
+<div class="checkbox-group">
+<label><input type="checkbox" id="needPacking" onchange="toggleSection('packingSection', this)"> I will need help packing</label>
+<label><input type="checkbox"> I will need help unpacking</label>
+</div>
+<div id="packingSection" class="hidden">
+<label>Packing Date <input type="text"></label>
+<label>Time <input type="text"></label>
+<label>Rooms/Areas to be packed <input type="text"></label>
+<label>Fragile/High-value items <input type="text"></label>
+
+<h3>Supplies Needed</h3>
+<div class="checkbox-group">
+<label><input type="checkbox"> Small Moving Box <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Medium Moving Box <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Large Moving Box <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Extra Large Moving Box <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> TV Moving Box <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Other Moving Box <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Rolls of Tape <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Rolls of Plastic Wrap <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Rolls of Packing Paper <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Rolls of Bubble Wrap <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Fragile Stickers <input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox"> Mattress Bags</label>
+</div>
+<button type="button" class="add-btn">Other Supplies</button>
+</div>
+
+<p style="font-style: italic; font-weight: bold; margin-top:2em;">
+After you finish submitting this form, please take pictures of all items listed on this form, as well as any doorways, stairs, stairwells, steep inclines, hallways, driveway, entrances and exits we will encounter during the move.
+</p>
+
+<div class="notice">
+Need help with this form?<br>
+If you have any questions, issues, or difficulties filling out this form, please don't hesitate to contact us.<br>
+Call or text: 660-351-4699<br>
+Email: MoveOverKC@gmail.com
+</div>
+
+<button type="submit" style="margin-top:2em;">Submit Form</button>
+</form>
+</div>
+
+<script>
+function toggleSection(sectionId, checkbox) {
+document.getElementById(sectionId).classList.toggle('hidden', !checkbox.checked);
+}
+</script>
+</body>
+</html>
