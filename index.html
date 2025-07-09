@@ -1,1 +1,274 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Move Over KC - Client Intake Form</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 2em; background-color: #f7f7f7; }
+.container { max-width: 800px; margin: 0 auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.15); }
+h1 { text-align: center; color: #004d80; }
+h2, h3 { text-align: left; color: #004d80; }
+label { display: block; margin-top: 1em; }
+.bold { font-weight: bold; }
+input[type=text], input[type=number], textarea { width: 100%; padding: 0.5em; margin-top: 0.3em; border-radius: 4px; border: 1px solid #ccc; }
+.checkbox-group label { display: block; margin-top: 0.5em; }
+.hidden { display: none; margin-left: 1em; }
+button.add-btn { margin-top: 1em; padding: 0.5em 1em; background-color: #004d80; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.notice { background-color: #e8f4ff; padding: 1em; border-radius: 6px; border: 1px solid #004d80; margin-top: 2em; font-weight: bold; }
+</style>
+</head>
+<body>
+	
+	<header style="text-align: center; margin-top: 20px;">
+  <img src="https://images.squarespace-cdn.com/content/685ac748aa53b164cca6c994/13523e3e-a5ab-4d50-b355-5020e43a9bf0/Image+%2829%29.jpg?content-type=image%2Fjpeg" 
+       alt="Move Over KC Logo" 
+       style="max-width: 200px; height: auto;">
+</header>
+
+	
+<div class="container">
+<h1>Move Over KC</h1>
+<h1>Client Intake Form</h1>
+<form action="https://formsubmit.co/moveoverkc@gmail.com" method="POST">
+<input type="hidden" name="_next" value="https://moveoverkc.github.io/moveoverkc-form/thank-you.html">
+
+<h2>Customer Information</h2>
+<label class="bold">Name <input type="text" name="Name" required></label>
+<label class="bold">Phone Number <input type="number" name="Phone" required></label>
+<label class="bold">Email Address <input type="text" name="Email" required></label>
+
+<h2>Move Details</h2>
+<label class="bold">Planned Moving Date <input type="date" name="Move Date"></label>
+<label class="bold">Preferred Start Time <input type="time" name="Start Time"></label>
+<label class="bold">Starting Address <input type="text" name="Starting Address"></label>
+<label class="bold">Ending Address <input type="text" name="Ending Address"></label>
+<label class="bold">Additional Stops <input type="text" name="Additional Stops"></label>
+
+<h2>Loading/Unloading</h2>
+<div class="checkbox-group">
+<label><input type="checkbox" id="needLoading" onchange="toggleSection('loadingSection', this)"> I will need help with Loading and/or Unloading</label>
+</div>
+<div id="loadingSection" class="hidden">
+
+<h3>Property Type and Access</h3>
+<label class="bold">Starting Location:</label>
+<div class="checkbox-group">
+<label><input type="checkbox"> Single-Floor Home</label>
+<label><input type="checkbox"> Multi-Level Home</label>
+<label><input type="checkbox"> Duplex</label>
+<label><input type="checkbox"> Townhome</label>
+<label><input type="checkbox"> Apartment</label>
+<label><input type="checkbox"> Storage Unit</label>
+<label><input type="checkbox" onchange="toggleSection('Other', this)"> Other <input id="Other" type="text" class="hidden" placeholder="Other"></label>
+</div>
+
+<label class="bold">Number of Stairs <input type="number" min="0"></label>
+<div class="checkbox-group">
+<label><input type="checkbox"> Regular Elevator</label>
+<label><input type="checkbox"> Service Elevator</label>
+<label><input type="checkbox"> No Elevator</label>
+</div>
+<label class="bold">Parking Description <input type="text"></label>
+
+<label class="bold">Ending Location:</label>
+<div class="checkbox-group">
+<label><input type="checkbox"> Single-Floor Home</label>
+<label><input type="checkbox"> Multi-Level Home</label>
+<label><input type="checkbox"> Duplex</label>
+<label><input type="checkbox"> Townhome</label>
+<label><input type="checkbox"> Apartment</label>
+<label><input type="checkbox"> Storage Unit</label>
+<label><input type="checkbox" onchange="toggleSection('Other1', this)"> Other <input id="Other1" type="text" class="hidden" placeholder="Other"></label>
+</div>
+
+<label class="bold">Number of Stairs <input type="number" min="0"></label>
+<div class="checkbox-group">
+<label><input type="checkbox"> Regular Elevator</label>
+<label><input type="checkbox"> Service Elevator</label>
+<label><input type="checkbox"> No Elevator</label>
+</div>
+<label class="bold">Parking Description <input type="text"></label>
+
+<div class="checkbox-group">
+<label class="bold"><input type="checkbox"> I need help loading</label>
+<label class="bold"><input type="checkbox"> I need help unloading</label>
+</div>
+
+<h3>Truck/Trailer</h3>
+<div class="checkbox-group">
+<label class="bold"><input type="checkbox"> I need Move Over KC to provide a truck</label>
+<label class="bold"><input type="checkbox"> I will provide my own truck or trailer</label>
+</div>
+
+<h3>Large, Heavy, or Specialty Items</h3>
+<div class="checkbox-group">
+<label><input type="checkbox" onchange="toggleSection('Washer', this)"> Washer <input id="Washer" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Dryer', this)"> Dryer <input id="Dryer" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Refrigerator', this)"> Refrigerator <input id="Refrigerator" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Oven', this)"> Oven <input id="Oven" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Entertainment Center', this)"> Entertainment Center <input id="Entertainment Center" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Couch', this)"> Couch <input id="Couch" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Recliner', this)"> Recliner <input id="Recliner" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Piano', this)"> Piano <input id="Piano" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Table', this)"> Table <input id="Table" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Chairs', this)"> Chairs <input id="Chairs" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Armour', this)"> Armour <input id="Armour" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Cabinet', this)"> Cabinet <input id="Cabinet" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Freezer', this)"> Freezer <input id="Freezer" type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('MattressSelection', this)"> Mattresses</label>
+<div class="hidden" id="MattressSelection">
+	<p style="margin-left: 20px;">
+    <label><input type="checkbox" onchange="toggleSection('twinNumber', this)"> Twin <input type="number" class="hidden" placeholder="Quantity" id="twinNumber"></label>
+    <label><input type="checkbox" onchange="toggleSection('fullNumber', this)"> Full <input type="number" class="hidden" placeholder="Quantity" id="fullNumber"></label>
+    <label><input type="checkbox" onchange="toggleSection('queenNumber', this)"> Queen <input type="number" class="hidden" placeholder="Quantity" id="queenNumber"></label>
+    <label><input type="checkbox" onchange="toggleSection('kingNumber', this)"> King <input type="number" class="hidden" placeholder="Quantity" id="kingNumber"></label>
+    <label><input type="checkbox" onchange="toggleSection('calikingNumber', this)"> California King <input type="number" class="hidden" placeholder="Quantity" id="calikingNumber"></label>
+    <label><input type="checkbox" onchange="toggleSection('OtherMatt', this)"> Other Mattress (use the button below to specify size and quantity) <input type="text" class="hidden" placeholder="Describe" id="OtherMatt"></label>
+</p>
+</div>
+<label><input type="checkbox" onchange="toggleSection('BedsSelection', this)"> Beds</label>
+<div class="hidden" id="BedsSelection">
+	<p style="margin-left: 20px;">
+    <label><input type="checkbox" onchange="toggleSection('twinNumber1', this)"> Twin <input type="number" class="hidden" placeholder="Quantity" id="twinNumber1"></label>
+    <label><input type="checkbox" onchange="toggleSection('fullNumber1', this)"> Full <input type="number" class="hidden" placeholder="Quantity" id="fullNumber1"></label>
+    <label><input type="checkbox" onchange="toggleSection('queenNumber1', this)"> Queen <input type="number" class="hidden" placeholder="Quantity" id="queenNumber1"></label>
+    <label><input type="checkbox" onchange="toggleSection('kingNumber1', this)"> King <input type="number" class="hidden" placeholder="Quantity" id="kingNumber1"></label>
+    <label><input type="checkbox" onchange="toggleSection('calikingNumber1', this)"> California King <input type="number" class="hidden" placeholder="Quantity" id="calikingNumber1"></label>
+    <label><input type="checkbox" onchange="toggleSection('OtherMatt1', this)"> Other Mattress (use the button below to specify size and quantity) <input type="text" class="hidden" placeholder="Describe" id="OtherMatt1"></label>
+</p>
+</div>
+<div id="customHeavyItemsList">
+    <button type="button" onclick="addItem('customHeavyItemsList')">Add Heavy Item</button>
+</div>
+</div>
+
+     
+
+
+
+<h3>Moving Equipment</h3>
+<div class="checkbox-group">
+<label><input type="checkbox"> Ratchet Straps</label>
+<label><input type="checkbox"> Moving Blankets</label>
+<label><input type="checkbox" onchange="toggleSection('MattressBags', this)"> Mattress Bags</label>
+<div class="hidden" id="MattressBags">
+	<p style="margin-left: 20px;">
+    <label><input type="checkbox" onchange="toggleSection('twinNumber2', this)"> Twin <input type="number" class="hidden" placeholder="Quantity" id="twinNumber2"></label>
+    <label><input type="checkbox" onchange="toggleSection('fullNumber2', this)"> Full <input type="number" class="hidden" placeholder="Quantity" id="fullNumber2"></label>
+    <label><input type="checkbox" onchange="toggleSection('queenNumber2', this)"> Queen <input type="number" class="hidden" placeholder="Quantity" id="queenNumber2"></label>
+    <label><input type="checkbox" onchange="toggleSection('kingNumber2', this)"> King <input type="number" class="hidden" placeholder="Quantity" id="kingNumber2"></label>
+    <label><input type="checkbox" onchange="toggleSection('calikingNumber2', this)"> California King <input type="number" class="hidden" placeholder="Quantity" id="calikingNumber2"></label>
+    <label><input type="checkbox" onchange="toggleSection('OtherMatt2', this)"> Other Mattress (use the button below to specify size and quantity) <input type="text" class="hidden" placeholder="Describe" id="OtherMatt2"></label>
+</p>
+</div>
+</div>
+<div id="customMattressSizesList">
+    <button type="button" onclick="addItem('customMattressSizesList')">Add Mattress</button>
+</div>
+</div>
+
+<h2>Packing/Unpacking</h2>
+<div class="checkbox-group">
+<label><input type="checkbox" id="needPacking" onchange="toggleSection('packingSection', this)"> I will need help packing</label>
+
+<label><input type="checkbox"> I will need help unpacking</label>
+
+</div>
+<div id="packingSection" class="hidden">
+<label>Packing Date <input type="date"></label>
+<label>Time <input type="time"></label>
+<label>Rooms/Areas to be packed <input type="text"></label>
+<label>Fragile/High-value items <input type="text"></label>
+
+<h3>Supplies Needed</h3>
+<div class="checkbox-group">
+<label><input type="checkbox" onchange="toggleSection('SmallBox', this)"> Small Moving Box <input id="SmallBox" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('MediumBox', this)"> Medium Moving Box <input id="MediumBox" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('LargeBox', this)"> Large Moving Box <input id="LargeBox" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('XLBox', this)"> Extra Large Moving Box <input id="XLBox" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('TVBox', this)"> TV Moving Box <input id="TVBox" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('OtherBox', this)"> Other Moving Box <input id="OtherBox" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('Tape', this)"> Rolls of Tape <input id="Tape" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('PlasticWrap', this)"> Rolls of Plastic Wrap <input id="PlasticWrap" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('PackingPaper', this)"> Rolls of Packing Paper <input id="PackingPaper" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('BubbleWrap', this)"> Rolls of Bubble Wrap <input id="BubbleWrap" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('FragileStickers', this)"> Fragile Stickers <input id="FragileStickers" input type="number" class="hidden" placeholder="Quantity"></label>
+<label><input type="checkbox" onchange="toggleSection('MattressBags2', this)"> Mattress Bags</label>
+<div class="hidden" id="MattressBags2">
+	<p style="margin-left: 20px;">
+    <label><input type="checkbox" onchange="toggleSection('twinNumber3', this)"> Twin <input type="number" class="hidden" placeholder="Quantity" id="twinNumber3"></label>
+    <label><input type="checkbox" onchange="toggleSection('fullNumber3', this)"> Full <input type="number" class="hidden" placeholder="Quantity" id="fullNumber3"></label>
+    <label><input type="checkbox" onchange="toggleSection('queenNumber3', this)"> Queen <input type="number" class="hidden" placeholder="Quantity" id="queenNumber3"></label>
+    <label><input type="checkbox" onchange="toggleSection('kingNumber3', this)"> King <input type="number" class="hidden" placeholder="Quantity" id="kingNumber3"></label>
+    <label><input type="checkbox" onchange="toggleSection('calikingNumber3', this)"> California King <input type="number" class="hidden" placeholder="Quantity" id="calikingNumber3"></label>
+    <label><input type="checkbox" onchange="toggleSection('OtherMatt3', this)"> Other Mattress (use the button below to specify size and quantity) <input type="text" class="hidden" placeholder="Describe" id="OtherMatt3"></label>
+</p>
+</div>
+</div>
+<div id="customPackingSuppliesList">
+    <button type="button" onclick="addItem('customPackingSuppliesList')">Add Supply</button>
+</div>
+</div>
+
+
+<div class="label">
+	<p style="margin-top: 40px">
+<label class="bold">How did you hear about us? <input type="text" name="Referral"></label>
+</p>
+</div>
+
+
+
+<div style="text-align: center;">
+<p style="font-style: normal; font-size: x-large; font-weight: bold; margin-top:2em;">
+After you finish submitting this form, please take pictures of all items listed on this form, as well as any doorways, stairs, stairwells, steep inclines, hallways, driveway, entrances and exits we will encounter during the move.
+Email the pictures to MoveOverKC@gmail.com and use your first and last name as the subject.
+</p>
+
+<div class="notice">
+	<p style="font-style: normal; font-size: x-large; font-weight: bold; margin-top:1em;">
+Need help with this form?<br>
+If you have any questions, issues, or difficulties filling out this form, please contact us.<br>
+Call or text: 660-351-4699<br>
+Email: MoveOverKC@gmail.com
+</p>
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
+<button type="submit" style="padding: 15px 30px; font-size: 18px; margin-top:2em;">Submit Form</button>
+</form>
+</div>
+</div>
+
+
+
+<script>
+function toggleSection(sectionId, checkbox) {
+document.getElementById(sectionId).classList.toggle('hidden', !checkbox.checked);
+}
+</script>
+
+<script>
+function addItem(containerId) {
+    const container = document.getElementById(containerId);
+    
+    const wrapper = document.createElement('div');
+    wrapper.style.marginTop = "1em";
+    wrapper.innerHTML = `
+        <label>Name: <input type="text" name="${containerId}_name[]"></label>
+        <label>Size: <input type="text" name="${containerId}_size[]"></label>
+        <label>Quantity: <input type="number" name="${containerId}_quantity[]" min="1"></label>
+        <button type="button" onclick="this.parentElement.remove()">Remove</button>
+    `;
+    
+    container.appendChild(wrapper);
+}
+</script>
+
+
+
+</body>
+</html>
