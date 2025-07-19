@@ -221,6 +221,14 @@ input:required:valid {
     margin-top: 1em;
 }
 
+.heavy-items-error {
+    background: #ffeaea;
+    border: 1px solid #e74c3c;
+    border-radius: 6px;
+    padding: 1em;
+    margin-top: 1em;
+}
+
 @media (max-width: 768px) {
     .form-row {
         grid-template-columns: 1fr;
@@ -433,48 +441,56 @@ input:required:valid {
                 </div>
             </div>
 
-            <h4>Heavy/Specialty Items</h4>
-            <div class="checkbox-group">
+            <h4>Heavy/Specialty Items <span style="color: #e74c3c;">*</span></h4>
+            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select at least one heavy/specialty item or indicate "No heavy items":</p>
+            <div class="checkbox-group" id="heavyItemsGroup">
                 <div class="checkbox-item">
-                    <input type="checkbox" id="piano" name="heavy_items[]" value="piano">
+                    <input type="checkbox" id="piano" name="heavy_items[]" value="piano" onchange="validateHeavyItems()">
                     <label for="piano">Piano</label>
                     <input type="number" class="quantity-input hidden" id="pianoQty" name="piano_qty" min="1" placeholder="Qty">
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="appliances" name="heavy_items[]" value="appliances">
+                    <input type="checkbox" id="appliances" name="heavy_items[]" value="appliances" onchange="validateHeavyItems()">
                     <label for="appliances">Large Appliances</label>
                     <input type="number" class="quantity-input hidden" id="appliancesQty" name="appliances_qty" min="1" placeholder="Qty">
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="furniture" name="heavy_items[]" value="furniture">
+                    <input type="checkbox" id="furniture" name="heavy_items[]" value="furniture" onchange="validateHeavyItems()">
                     <label for="furniture">Heavy Furniture</label>
                     <input type="number" class="quantity-input hidden" id="furnitureQty" name="furniture_qty" min="1" placeholder="Qty">
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="safe" name="heavy_items[]" value="safe">
+                    <input type="checkbox" id="safe" name="heavy_items[]" value="safe" onchange="validateHeavyItems()">
                     <label for="safe">Safe</label>
                     <input type="number" class="quantity-input hidden" id="safeQty" name="safe_qty" min="1" placeholder="Qty">
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="mattress" name="heavy_items[]" value="mattress">
+                    <input type="checkbox" id="mattress" name="heavy_items[]" value="mattress" onchange="validateHeavyItems()">
                     <label for="mattress">Mattress</label>
                     <input type="number" class="quantity-input hidden" id="mattressQty" name="mattress_qty" min="1" placeholder="Qty">
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="exerciseequipment" name="heavy_items[]" value="exerciseequipment">
+                    <input type="checkbox" id="exerciseequipment" name="heavy_items[]" value="exerciseequipment" onchange="validateHeavyItems()">
                     <label for="exerciseequipment">Exercise Equipment</label>
                     <input type="number" class="quantity-input hidden" id="exerciseQty" name="exercise_qty" min="1" placeholder="Qty">
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="lawnequipment" name="heavy_items[]" value="lawnequipment">
+                    <input type="checkbox" id="lawnequipment" name="heavy_items[]" value="lawnequipment" onchange="validateHeavyItems()">
                     <label for="lawnequipment">Lawn Equipment</label>
                     <input type="number" class="quantity-input hidden" id="lawnQty" name="lawn_qty" min="1" placeholder="Qty">
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="other" name="heavy_items[]" value="other">
+                    <input type="checkbox" id="noheavy" name="heavy_items[]" value="no_heavy_items" onchange="validateHeavyItems(); handleNoHeavyItems(this)">
+                    <label for="noheavy">No heavy items</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="other" name="heavy_items[]" value="other" onchange="validateHeavyItems()">
                     <label for="other">Other item</label>
                     <input type="number" class="quantity-input hidden" id="otherQty" name="other_qty" min="1" placeholder="Qty">
                 </div>
+            </div>
+            <div id="heavyItemsError" class="error-message heavy-items-error">
+                <strong>Please select at least one heavy/specialty item or indicate "No heavy items".</strong>
             </div>
             
             <div class="form-group">
@@ -511,21 +527,21 @@ input:required:valid {
             <h3>📦 Unpacking Details</h3>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="unpackingDate">Unpacking Date</label>
+                    <label for="unpackingDate" class="required">Unpacking Date</label>
                     <input type="date" id="unpackingDate" name="Unpacking Date" data-conditional-required="unpackingSection">
                 </div>
                 <div class="form-group">
-                    <label for="unpackingTime">Packing Time</label>
+                    <label for="unpackingTime">Unpacking Time</label>
                     <input type="time" id="unpackingTime" name="Unpacking Time">
                 </div>
             </div>
             <div class="form-group">
-                <label for="unpackingStartAddress" class="required">Unpacking Address</label>
-                <input type="text" id="unpackingStartAddress" name="Unpacking End Address" required placeholder="Street address, city, state, zip">
+                <label for="unpackingAddress" class="required">Unpacking Address</label>
+                <input type="text" id="unpackingAddress" name="Unpacking Address" placeholder="Street address, city, state, zip" data-conditional-required="unpackingSection">
             </div>
             <div class="form-group">
                 <label for="unpackingDetails">Unpacking Additional Notes</label>
-                <textarea id="unpackingDetails" name="Unpacking Detailss" rows="3" placeholder="Describe any additional details for unpacking"></textarea>
+                <textarea id="unpackingDetails" name="Unpacking Details" rows="3" placeholder="Describe any additional details for unpacking"></textarea>
             </div>
         </div>
 
@@ -631,6 +647,48 @@ function validateServices() {
     return isChecked;
 }
 
+function validateHeavyItems() {
+    const loadingCheckbox = document.getElementById('needLoading');
+    if (!loadingCheckbox.checked) return true; // Only validate if loading service is selected
+    
+    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]');
+    const errorDiv = document.getElementById('heavyItemsError');
+    const heavyItemsGroup = document.getElementById('heavyItemsGroup');
+    
+    let isChecked = false;
+    heavyItemCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            isChecked = true;
+        }
+    });
+    
+    if (isChecked) {
+        errorDiv.style.display = 'none';
+        heavyItemsGroup.style.borderColor = '';
+    } else {
+        errorDiv.style.display = 'block';
+        heavyItemsGroup.style.borderColor = '#e74c3c';
+    }
+    
+    return isChecked;
+}
+
+function handleNoHeavyItems(checkbox) {
+    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
+    
+    if (checkbox.checked) {
+        // If "No heavy items" is checked, uncheck all other heavy items
+        heavyItemCheckboxes.forEach(cb => {
+            cb.checked = false;
+            const qtyInput = cb.parentNode.querySelector('.quantity-input');
+            if (qtyInput) {
+                qtyInput.classList.add('hidden');
+                qtyInput.value = '';
+            }
+        });
+    }
+}
+
 function toggleSection(sectionId, checkbox) {
     const section = document.getElementById(sectionId);
     const isVisible = checkbox.checked;
@@ -648,18 +706,41 @@ function toggleSection(sectionId, checkbox) {
         }
     });
     
-    // Show/hide quantity inputs for heavy items
-    if (sectionId === 'loadingSection') {
+    // Clear heavy items when loading section is hidden
+    if (sectionId === 'loadingSection' && !isVisible) {
         const heavyItemCheckboxes = section.querySelectorAll('input[name="heavy_items[]"]');
         heavyItemCheckboxes.forEach(cb => {
-            cb.addEventListener('change', function() {
-                const qtyInput = this.parentNode.querySelector('.quantity-input');
-                if (qtyInput) {
-                    qtyInput.classList.toggle('hidden', !this.checked);
-                    if (!this.checked) qtyInput.value = '';
-                }
-            });
+            cb.checked = false;
+            const qtyInput = cb.parentNode.querySelector('.quantity-input');
+            if (qtyInput) {
+                qtyInput.classList.add('hidden');
+                qtyInput.value = '';
+            }
         });
+        validateHeavyItems();
+    }
+    
+    // Show/hide quantity inputs for heavy items - only add listeners once
+    if (sectionId === 'loadingSection' && isVisible) {
+        const heavyItemCheckboxes = section.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
+        heavyItemCheckboxes.forEach(cb => {
+            // Remove existing listeners to prevent duplicates
+            cb.removeEventListener('change', handleHeavyItemChange);
+            cb.addEventListener('change', handleHeavyItemChange);
+        });
+    }
+}
+
+function handleHeavyItemChange() {
+    const qtyInput = this.parentNode.querySelector('.quantity-input');
+    if (qtyInput) {
+        qtyInput.classList.toggle('hidden', !this.checked);
+        if (!this.checked) qtyInput.value = '';
+    }
+    
+    // If any other heavy item is selected, uncheck "No heavy items"
+    if (this.checked) {
+        document.getElementById('noheavy').checked = false;
     }
 }
 
@@ -668,8 +749,16 @@ document.getElementById('movingForm').addEventListener('submit', function(e) {
     // First check if at least one service is selected
     if (!validateServices()) {
         e.preventDefault();
-        alert('Please select at least one service before submitting the form.');
+        // alert('Please select at least one service before submitting the form.');
         document.getElementById('servicesGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+    
+    // Check heavy items validation if loading service is selected
+    if (document.getElementById('needLoading').checked && !validateHeavyItems()) {
+        e.preventDefault();
+        // alert('Please select at least one heavy/specialty item or indicate "No heavy items" for the Loading/Unloading service.');
+        document.getElementById('heavyItemsGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
     }
     
@@ -700,33 +789,28 @@ document.getElementById('movingForm').addEventListener('submit', function(e) {
     }
 });
 
-// Auto-update quantity inputs visibility
+// Initialize form on page load
 document.addEventListener('DOMContentLoaded', function() {
-
     setMinDate();
 
-    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]');
+    // Set up heavy item checkboxes with proper event listeners
+    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
     heavyItemCheckboxes.forEach(cb => {
-        cb.addEventListener('change', function() {
-            const qtyInput = this.parentNode.querySelector('.quantity-input');
-            if (qtyInput) {
-                qtyInput.classList.toggle('hidden', !this.checked);
-                if (!this.checked) qtyInput.value = '';
-            }
-        });
+        cb.addEventListener('change', handleHeavyItemChange);
     });
 });
 
 function setMinDate() {
     const today = new Date();
     const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1); // Optional: start from tomorrow
+    tomorrow.setDate(tomorrow.getDate() + 1);
     
     const minDate = tomorrow.toISOString().split('T')[0];
     
     document.getElementById('moveDate').setAttribute('min', minDate);
     document.getElementById('packingDate').setAttribute('min', minDate);
     document.getElementById('rearrangingDate').setAttribute('min', minDate);
+    document.getElementById('unpackingDate').setAttribute('min', minDate);
 }
 </script>
 
