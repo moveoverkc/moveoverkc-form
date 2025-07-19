@@ -293,11 +293,11 @@ input:required:valid {
                 <div class="checkbox-item">
                     <input type="checkbox" id="needUnpacking" name="services[]" value="unpacking" onchange="toggleSection('unpackingSection', this); validateServices()">
                     <label for="needUnpacking">Unpacking Help</label>
-                </div>
-                <div class="checkbox-item">
+               </div>
+                <!-- <div class="checkbox-item">
                     <input type="checkbox" id="needSupplies" name="services[]" value="supplies" onchange="validateServices()">
                     <label for="needSupplies">Moving Supplies</label>
-                </div>
+                </div>  -->
                 <div class="checkbox-item">
                     <input type="checkbox" id="needRearranging" name="services[]" value="furniture_rearranging" onchange="toggleSection('rearrangingSection', this); validateServices()">
                     <label for="needRearranging">Furniture Rearranging</label>
@@ -508,6 +508,39 @@ input:required:valid {
             
             <div class="form-group">
                 <label for="specialItems">Additional Heavy/Specialty Items</label>
+                <textarea id="specialItems" name="Special Items" rows="3" placeholder="Describe any other heavy, fragile, or specialty items"></textarea>
+            </div>
+
+            <h4>Moving Equipment <span style="color: #e74c3c;">*</span></h4>
+            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select:</p>
+            <div class="checkbox-group" id="movingEquipmentGroup">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="straps" name="movingEquipment[]" value="straps" onchange="validatemovingEquipmentItems()">
+                    <label for="straps">Ratchet Straps</label>
+                    <input type="number" class="quantity-input hidden" id="strapsQty" name="straps_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="blankets" name="movingEquipment[]" value="blankets" onchange="validatemovingEquipmentItems()">
+                    <label for="blankets">Moving Blankets</label>
+                    <input type="number" class="quantity-input hidden" id="blanketsQty" name="blankets_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="bags" name="movingEquipment[]" value="bags" onchange="validatemovingEquipmentItems()">
+                    <label for="bags">Mattress Bags (Please note matress sizes)</label>
+                    <input type="number" class="quantity-input hidden" id="bagsQty" name="bags_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="other" name="movingEquipment[]" value="other" onchange="validatemovingEquipmentItems()">
+                    <label for="other">Other (Please note)</label>
+                    <input type="number" class="quantity-input hidden" id="otherQty" name="other_qty" min="1" placeholder="Qty">
+                </div>
+            </div>
+            <div id="heavyItemsError" class="error-message heavy-items-error">
+                <strong>Please select at least one heavy/specialty item or indicate "No heavy items".</strong>
+            </div>
+            
+            <div class="form-group">
+                <label for="specialItems">Additional Moving Equipment</label>
                 <textarea id="specialItems" name="Special Items" rows="3" placeholder="Describe any other heavy, fragile, or specialty items"></textarea>
             </div>
         </div>
