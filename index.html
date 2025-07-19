@@ -295,10 +295,6 @@ input:required:valid {
                     <label for="needUnpacking">Unpacking Help</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="needTruck" name="services[]" value="truck_rental" onchange="validateServices()">
-                    <label for="needTruck">Truck Rental</label>
-                </div>
-                <div class="checkbox-item">
                     <input type="checkbox" id="needSupplies" name="services[]" value="supplies" onchange="validateServices()">
                     <label for="needSupplies">Moving Supplies</label>
                 </div>
@@ -347,6 +343,23 @@ input:required:valid {
         <div id="loadingSection" class="toggle-section hidden">
             <h3>📦 Loading & Unloading Details</h3>
             
+            <h4>Moving Truck <span style="color: #e74c3c;">*</span></h4>
+            <div class="checkbox-group" id="truckGroup">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="Truck" name="truck[]" value="truck" onchange="validateTruck()">
+                    <label for="Truck">I would like Move Over KC to Provide a truck</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="noTruck" name="truck[]" value="noTruck" onchange="validateTruck()">
+                    <label for="noTruck">I will provide my own truck/trailer</label>
+                </div>
+            </div>
+            <div id="truckError" class="error-message heavy-items-error">
+                <strong>Please specify a truck option.</strong>
+            </div>
+            
+            
+            <h4>Moving Details <span style="color: #e74c3c;">*</span></h4>
             <div class="form-row">
                 <div class="location-details">
                     <h4>Starting Location</h4>
@@ -673,6 +686,32 @@ function validateHeavyItems() {
     return isChecked;
 }
 
+function validateTruck() {
+    const loadingCheckbox = document.getElementById('needLoading');
+    if (!loadingCheckbox.checked) return true;
+    
+    const truckCheckboxes = document.querySelectorAll('input[name="truck[]"]');
+    const errorDiv = document.getElementById('truckError');
+    const truckGroup = document.getElementById('truckGroup');
+    
+    let isChecked = false;
+    truckCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            isChecked = true;
+        }
+    });
+    
+    if (isChecked) {
+        errorDiv.style.display = 'none';
+        truckGroup.style.borderColor = '';
+    } else {
+        errorDiv.style.display = 'block';
+        truckGroup.style.borderColor = '#e74c3c';
+    }
+    
+    return isChecked;
+}
+
 function handleNoHeavyItems(checkbox) {
     const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
     
@@ -717,7 +756,17 @@ function toggleSection(sectionId, checkbox) {
                 qtyInput.value = '';
             }
         });
+        const truckCheckboxes = section.querySelectorAll('input[name="truck[]"]');
+        heavyItemCheckboxes.forEach(cb => {
+            cb.checked = false;
+            const qtyInput = cb.parentNode.querySelector('.quantity-input');
+            if (qtyInput) {
+                qtyInput.classList.add('hidden');
+                qtyInput.value = '';
+            }
+        });
         validateHeavyItems();
+        validateTruck();
     }
     
     // Show/hide quantity inputs for heavy items - only add listeners once
@@ -762,6 +811,14 @@ document.getElementById('movingForm').addEventListener('submit', function(e) {
         return;
     }
     
+    // Check heavy items validation if loading service is selected
+    if (document.getElementById('needLoading').checked && !validateTruck()) {
+        e.preventDefault();
+        // alert('Please select at least one heavy/specialty item or indicate "No heavy items" for the Loading/Unloading service.');
+        document.getElementById('truckGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
     // Then check other required fields
     const requiredFields = this.querySelectorAll('[required]');
     let isValid = true;
