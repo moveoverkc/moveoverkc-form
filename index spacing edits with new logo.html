@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Move Over KC - Client Intake Form</title>
+<style>
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0; 
+    padding: 20px;
+    background: black;
+    min-height: 100vh;
+}
+
+.container { 
+    max-width: 900px; 
+    margin: 0 auto; 
+    background: #fff; 
+    padding: 3em; 
+    border-radius: 12px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+header { 
+    text-align: center; 
+    margin-bottom: 1em; 
+}
+
+h1 { 
+    color: #004d80; 
+    font-size: 2.5em; 
+    margin-top: 0em;
+    margin-bottom: 0em; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+h4 { 
+    color: #000000; 
+    font-size: 1em; 
+    margin-top: 0em;
+    margin-bottom: 0em; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 0em;
+}
+
+.form-section {
+    background: #f8f9fa;
+    padding: 1em;
+    margin: 1.5em 0;
+    border-radius: 8px;
+    border-left: 4px solid #004d80;
+}
+
+.form-section h2 {
+    color: #004d80;
+    margin-top: 0;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-section h3 {
+    color: #333;
+    margin-top: 1.5em;
+    font-size: 1.2em;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75em;
+    margin-bottom: 0em;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5em;
+}
+
+.required::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.8em;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #004d80;
+    box-shadow: 0 0 0 3px rgba(0, 77, 128, 0.1);
+}
+
+input:required:invalid {
+    border-color: #e74c3c;
+}
+
+input:required:valid {
+    border-color: #27ae60;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    transition: border-color 0.3s ease;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+.checkbox-item label {
+    margin: 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.quantity-input {
+    width: 80px !important;
+    margin-left: 0.5em;
+}
+
+.hidden { display: none; }
+
+.toggle-section {
+    background: #e8f4ff;
+    border: 1px solid #004d80;
+    border-radius: 6px;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.submit-section {
+    text-align: center;
+    margin-top: 3em;
+    padding: 2em;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.submit-btn {
+    background: linear-gradient(45deg, #004d80, #0066cc);
+    color: white;
+    padding: 1em 3em;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 77, 128, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 77, 128, 0.4);
+}
+
+.notice {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    padding: 1.5em;
+    margin: 2em 0;
+    color: #856404;
+}
+
+.contact-info {
+    background: #d1ecf1;
+    border: 1px solid #bee5eb;
+    border-radius: 6px;
+    padding: 1.5em;
+    margin: 2em 0;
+    color: #0c5460;
+}
+
+.location-details {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1.5em;
+    margin: 1em 0;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+    display: none;
+}
+
+.services-error {
+    background: #ffeaea;
+    border: 1px solid #e74c3c;
+    border-radius: 6px;
+    padding: 1em;
+    margin-top: 1em;
+}
+
+.heavy-items-error {
+    background: #ffeaea;
+    border: 1px solid #e74c3c;
+    border-radius: 6px;
+    padding: 1em;
+    margin-top: 1em;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .container {
+        padding: 1.5em;
+    }
+    
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <img src="https://github.com/moveoverkc/moveoverkc-form/blob/v2Updates/logo%20variant.png?raw=true" 
+             alt="Move Over KC Logo" 
+             style="max-width: 200px; height: auto; margin-bottom: 0;">
+        <h1>Move Over KC</h1>
+        <p class="subtitle">Professional Moving Services - Client Intake Form</p>
+    </header>
+
+    <form action="https://formsubmit.co/moveoverkc@gmail.com" method="POST" id="movingForm">
+        <input type="hidden" name="_next" value="https://moveoverkc.github.io/moveoverkc-form/thank-you.html">
+
+        <!-- Customer Information -->
+        <div class="form-section">
+            <h2>📋 Customer Information</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="customerName" class="required">Full Name</label>
+                    <input type="text" id="customerName" name="Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone" class="required">Phone Number</label>
+                    <input type="tel" id="customerPhone" name="Phone" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="customerEmail" class="required">Email Address</label>
+                <input type="email" id="customerEmail" name="Email" required>
+            </div>
+        </div>
+        
+        <!-- Services Needed -->
+        <div class="form-section">
+            <h2>🚚 Services Needed <span style="color: #e74c3c;">*</span></h2>
+            <p style="color: #666; margin-bottom: 1em;">Please select at least one service:</p>
+            <div class="checkbox-group" id="servicesGroup">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="needLoading" name="services[]" value="loading_unloading" onchange="toggleSection('loadingSection', this); validateServices()">
+                    <label for="needLoading">Loading/Unloading Help</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="needPacking" name="services[]" value="packing" onchange="toggleSection('packingSection', this); validateServices()">
+                    <label for="needPacking">Packing Help</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="needUnpacking" name="services[]" value="unpacking" onchange="toggleSection('unpackingSection', this); validateServices()">
+                    <label for="needUnpacking">Unpacking Help</label>
+               </div>
+                <!-- <div class="checkbox-item">
+                    <input type="checkbox" id="needSupplies" name="services[]" value="supplies" onchange="validateServices()">
+                    <label for="needSupplies">Moving Supplies</label>
+                </div>  -->
+                <div class="checkbox-item">
+                    <input type="checkbox" id="needRearranging" name="services[]" value="furniture_rearranging" onchange="toggleSection('rearrangingSection', this); validateServices()">
+                    <label for="needRearranging">Furniture Rearranging</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="needJunkRemoval" name="services[]" value="junkRemoval" onchange="toggleSection('junkRemovalSection', this); validateServices()">
+                    <label for="needJunkRemoval">Junk Removal</label>
+                </div>
+            </div>
+            <div id="servicesError" class="error-message services-error">
+                <strong>Please select at least one service to continue.</strong>
+            </div>
+        </div>
+
+        <!-- Move Details -->
+        <div class="form-section">
+            <h2>📅 Move Details</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="moveDate" class="required">Moving Date</label>
+                    <input type="date" id="moveDate" name="Move Date" required>
+                </div>
+                <div class="form-group">
+                    <label for="startTime" class="required">Preferred Start Time</label>
+                    <input type="time" id="startTime" name="Start Time">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="startAddress" class="required">Starting Address</label>
+                <input type="text" id="startAddress" name="Starting Address" required placeholder="Street address, city, state, zip">
+            </div>
+            <div class="form-group">
+                <label for="endAddress" class="required">Ending Address</label>
+                <input type="text" id="endAddress" name="Ending Address" required placeholder="Street address, city, state, zip">
+            </div>
+            <div class="form-group">
+                <label for="additionalStops">Additional Stops</label>
+                <textarea id="additionalStops" name="Additional Stops" rows="2" placeholder="List any additional stops along the way"></textarea>
+            </div>
+        </div>
+
+        <!-- Loading/Unloading Section -->
+        <div id="loadingSection" class="toggle-section hidden">
+            <h3>📦 Loading & Unloading Details</h3>
+            
+            <h4>Moving Truck <span style="color: #e74c3c;">*</span></h4>
+            <div class="checkbox-group" id="truckGroup">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="Truck" name="truck[]" value="truck" onchange="validateTruck()">
+                    <label for="Truck">I would like Move Over KC to Provide a truck</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="noTruck" name="truck[]" value="noTruck" onchange="validateTruck()">
+                    <label for="noTruck">I will provide my own truck/trailer</label>
+                </div>
+            </div>
+            <div id="truckError" class="error-message heavy-items-error">
+                <strong>Please specify a truck option.</strong>
+            </div>
+            
+            
+            <h4>Moving Details <span style="color: #e74c3c;">*</span></h4>
+            <div class="form-row">
+                <div class="location-details">
+                    <h4>Starting Location</h4>
+                    <div class="form-group">
+                        <label for="startPropertyType" class="required">Property Type</label>
+                        <select id="startPropertyType" name="Start Property Type" data-conditional-required="loadingSection">
+                            <option value="">Select property type</option>
+                            <option value="single-floor-home">Single-Floor Home</option>
+                            <option value="multi-level-home">Multi-Level Home</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="townhome">Townhome</option>
+                            <option value="duplex">Duplex</option>
+                            <option value="storage-unit">Storage Unit</option>
+                            <option value="office">Office</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startStairs" class="required">Number of Stairs</label>
+                            <input type="number" id="startStairs" name="Start Stairs" min="0" data-conditional-required="loadingSection">
+                        </div>
+                        <div class="form-group">
+                            <label for="startFloor" class="required">Floor Level</label>
+                            <select id="startFloor" name="Start Floor" data-conditional-required="loadingSection">
+                                <option value="ground">Ground Floor</option>
+                                <option value="1">1st Floor</option>
+                                <option value="2">2nd Floor</option>
+                                <option value="3">3rd Floor</option>
+                                <option value="4+">4th Floor or Higher</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="startElevator" class="required">Elevator Access</label>
+                        <select id="startElevator" name="Start Elevator" data-conditional-required="loadingSection">
+                            <option value="none">No Elevator</option>
+                            <option value="regular">Regular Elevator</option>
+                            <option value="service">Service Elevator</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="startParking" class="required">Parking/Access Notes</label>
+                        <input type="text" id="startParking" name="Start Parking" placeholder="e.g., street parking, long driveway, loading dock" data-conditional-required="loadingSection">
+                    </div>
+                </div>
+
+                <div class="location-details">
+                    <h4>Ending Location</h4>
+                    <div class="form-group">
+                        <label for="endPropertyType" class="required">Property Type</label>
+                        <select id="endPropertyType" name="End Property Type" data-conditional-required="loadingSection">
+                            <option value="">Select property type</option>
+                            <option value="single-floor-home">Single-Floor Home</option>
+                            <option value="multi-level-home">Multi-Level Home</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="townhome">Townhome</option>
+                            <option value="duplex">Duplex</option>
+                            <option value="storage-unit">Storage Unit</option>
+                            <option value="office">Office</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="endStairs" class="required">Number of Stairs</label>
+                            <input type="number" id="endStairs" name="End Stairs" min="0" data-conditional-required="loadingSection">
+                        </div>
+                        <div class="form-group">
+                            <label for="endFloor" class="required">Floor Level</label>
+                            <select id="endFloor" name="End Floor" data-conditional-required="loadingSection">
+                                <option value="ground">Ground Floor</option>
+                                <option value="1">1st Floor</option>
+                                <option value="2">2nd Floor</option>
+                                <option value="3">3rd Floor</option>
+                                <option value="4+">4th Floor or Higher</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endElevator" class="required">Elevator Access</label>
+                        <select id="endElevator" name="End Elevator" data-conditional-required="loadingSection">
+                            <option value="none">No Elevator</option>
+                            <option value="regular">Regular Elevator</option>
+                            <option value="service">Service Elevator</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="endParking" class="required">Parking/Access Notes</label>
+                        <input type="text" id="endParking" name="End Parking" placeholder="e.g., street parking, long driveway, loading dock" data-conditional-required="loadingSection">
+                    </div>
+                </div>
+            </div>
+
+            <h4>Heavy/Specialty Items <span style="color: #e74c3c;">*</span></h4>
+            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select at least one heavy/specialty item or indicate "No heavy items":</p>
+            <div class="checkbox-group" id="heavyItemsGroup">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="piano" name="heavy_items[]" value="piano" onchange="validateHeavyItems()">
+                    <label for="piano">Piano</label>
+                    <input type="number" class="quantity-input hidden" id="pianoQty" name="piano_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="appliances" name="heavy_items[]" value="appliances" onchange="validateHeavyItems()">
+                    <label for="appliances">Large Appliances</label>
+                    <input type="number" class="quantity-input hidden" id="appliancesQty" name="appliances_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="furniture" name="heavy_items[]" value="furniture" onchange="validateHeavyItems()">
+                    <label for="furniture">Heavy Furniture</label>
+                    <input type="number" class="quantity-input hidden" id="furnitureQty" name="furniture_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="safe" name="heavy_items[]" value="safe" onchange="validateHeavyItems()">
+                    <label for="safe">Safe</label>
+                    <input type="number" class="quantity-input hidden" id="safeQty" name="safe_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="mattress" name="heavy_items[]" value="mattress" onchange="validateHeavyItems()">
+                    <label for="mattress">Mattress</label>
+                    <input type="number" class="quantity-input hidden" id="mattressQty" name="mattress_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="exerciseequipment" name="heavy_items[]" value="exerciseequipment" onchange="validateHeavyItems()">
+                    <label for="exerciseequipment">Exercise Equipment</label>
+                    <input type="number" class="quantity-input hidden" id="exerciseQty" name="exercise_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="lawnequipment" name="heavy_items[]" value="lawnequipment" onchange="validateHeavyItems()">
+                    <label for="lawnequipment">Lawn Equipment</label>
+                    <input type="number" class="quantity-input hidden" id="lawnQty" name="lawn_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="noheavy" name="heavy_items[]" value="no_heavy_items" onchange="validateHeavyItems(); handleNoHeavyItems(this)">
+                    <label for="noheavy">No heavy items</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="other" name="heavy_items[]" value="other" onchange="validateHeavyItems()">
+                    <label for="other">Other item</label>
+                    <input type="number" class="quantity-input hidden" id="otherQty" name="other_qty" min="1" placeholder="Qty">
+                </div>
+            </div>
+            <div id="heavyItemsError" class="error-message heavy-items-error">
+                <strong>Please select at least one heavy/specialty item or indicate "No heavy items".</strong>
+            </div>
+            
+            <div class="form-group">
+                <label for="specialItems">Additional Heavy/Specialty Items</label>
+                <textarea id="specialItems" name="Special Items" rows="3" placeholder="Describe any other heavy, fragile, or specialty items"></textarea>
+            </div>
+
+            <h4>Moving Equipment <span style="color: #e74c3c;">*</span></h4>
+            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select:</p>
+            <div class="checkbox-group" id="movingEquipmentGroup">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="straps" name="movingEquipment[]" value="straps" onchange="validatemovingEquipmentItems()">
+                    <label for="straps">Ratchet Straps</label>
+                    <input type="number" class="quantity-input hidden" id="strapsQty" name="straps_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="blankets" name="movingEquipment[]" value="blankets" onchange="validatemovingEquipmentItems()">
+                    <label for="blankets">Moving Blankets</label>
+                    <input type="number" class="quantity-input hidden" id="blanketsQty" name="blankets_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="bags" name="movingEquipment[]" value="bags" onchange="validatemovingEquipmentItems()">
+                    <label for="bags">Mattress Bags (Please note matress sizes)</label>
+                    <input type="number" class="quantity-input hidden" id="bagsQty" name="bags_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="other" name="movingEquipment[]" value="other" onchange="validatemovingEquipmentItems()">
+                    <label for="other">Other (Please note)</label>
+                    <input type="number" class="quantity-input hidden" id="otherQty" name="other_qty" min="1" placeholder="Qty">
+                </div>
+            </div>
+            <div id="heavyItemsError" class="error-message heavy-items-error">
+                <strong>Please select at least one heavy/specialty item or indicate "No heavy items".</strong>
+            </div>
+            
+            <div class="form-group">
+                <label for="specialItems">Additional Moving Equipment</label>
+                <textarea id="specialItems" name="Special Items" rows="3" placeholder="Describe any other heavy, fragile, or specialty items"></textarea>
+            </div>
+        </div>
+
+        <!-- Packing Section -->
+        <div id="packingSection" class="toggle-section hidden">
+            <h3>📦 Packing Details</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="packingDate">Packing Date</label>
+                    <input type="date" id="packingDate" name="Packing Date" data-conditional-required="packingSection">
+                </div>
+                <div class="form-group">
+                    <label for="packingTime">Packing Time</label>
+                    <input type="time" id="packingTime" name="Packing Time">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="packingAreas" class="required">Rooms/Areas to Pack</label>
+                <textarea id="packingAreas" name="Packing Areas" rows="3" placeholder="List rooms or areas that need packing" data-conditional-required="packingSection"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="fragileItems">Fragile/High-Value Items</label>
+                <textarea id="fragileItems" name="Fragile Items" rows="3" placeholder="Describe fragile or valuable items requiring special care"></textarea>
+            </div>
+        </div>
+
+        <!-- Unpacking Section -->
+        <div id="unpackingSection" class="toggle-section hidden">
+            <h3>📦 Unpacking Details</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="unpackingDate" class="required">Unpacking Date</label>
+                    <input type="date" id="unpackingDate" name="Unpacking Date" data-conditional-required="unpackingSection">
+                </div>
+                <div class="form-group">
+                    <label for="unpackingTime">Unpacking Time</label>
+                    <input type="time" id="unpackingTime" name="Unpacking Time">
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <label for="unpackingAddress" class="required">Unpacking Address</label>
+                <input type="text" id="unpackingAddress" name="Unpacking Address" placeholder="Street address, city, state, zip" data-conditional-required="unpackingSection">
+            </div> -->
+            <div class="form-group">
+                <label for="unpackingDetails">Unpacking Additional Notes</label>
+                <textarea id="unpackingDetails" name="Unpacking Details" rows="3" placeholder="Describe any additional details for unpacking"></textarea>
+            </div>
+        </div>
+
+        <!-- Furniture Rearranging Section -->
+        <div id="rearrangingSection" class="toggle-section hidden">
+            <h3>🪑 Furniture Rearranging Details</h3>
+            <div class="form-group">
+                <label for="rearrangingDetails" class="required">Rearranging Details</label>
+                <textarea id="rearrangingDetails" name="Rearranging Details" rows="4" placeholder="Please describe what furniture needs to be rearranged, moved between rooms, or repositioned. Include details about the current location and desired location of items." data-conditional-required="rearrangingSection"></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="rearrangingDate">Preferred Date for Rearranging</label>
+                    <input type="date" id="rearrangingDate" name="Rearranging Date">
+                </div>
+                <div class="form-group">
+                    <label for="rearrangingTime">Preferred Time</label>
+                    <input type="time" id="rearrangingTime" name="Rearranging Time">
+                </div>
+            </div>
+        </div>
+
+        <!-- Junk Removal Section -->
+        <div id="junkRemovalSection" class="toggle-section hidden">
+            <h3>🚮 Junk Removal Details</h3>
+            <div class="form-group">
+                <label for="junkRemovalDetails" class="required">Please list all items to be hauled and desired dumping location</label>
+                <textarea id="junkRemovalDetails" name="Junk Removal Details" rows="3" placeholder="Items to be hauled" data-conditional-required="junkRemovalSection"></textarea>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="form-section">
+            <h2>💬 Additional Information</h2>
+            <div class="form-group">
+                <label for="specialRequests">Special Requests or Notes</label>
+                <textarea id="specialRequests" name="Special Requests" rows="4" placeholder="Any additional information, special requests, or concerns"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="referralSource">How did you hear about us?</label>
+                <select id="referralSource" name="Referral Source">
+                    <option value="">Select source</option>
+                    <option value="google">Google Search</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="friend">Friend/Family Referral</option>
+                    <option value="previous-customer">Previous Customer</option>
+                    <option value="online-review">Online Reviews</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Important Notice -->
+        <div class="notice">
+            <h3>📸 Important: Photo Documentation Required</h3>
+            <p>After submitting this form, please take photos of:</p>
+            <ul>
+                <li>All items mentioned in this form</li>
+                <li>All doorways, stairs, and hallways</li>
+                <li>Driveways and access points</li>
+                <li>Any obstacles or challenges</li>
+            </ul>
+            <p><strong>Email photos to: MoveOverKC@gmail.com</strong><br>
+            Subject line: [Your First and Last Name] - Move Photos</p>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h3>📞 Need Help?</h3>
+            <p>If you have questions or need assistance with this form:</p>
+            <p><strong>Call/Text:</strong> 660-351-4699<br>
+            <strong>Email:</strong> MoveOverKC@gmail.com</p>
+        </div>
+
+        <!-- Submit Section -->
+        <div class="submit-section">
+            <button type="submit" class="submit-btn">Submit Moving Request</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function validateServices() {
+    const serviceCheckboxes = document.querySelectorAll('input[name="services[]"]');
+    const errorDiv = document.getElementById('servicesError');
+    const servicesGroup = document.getElementById('servicesGroup');
+    
+    let isChecked = false;
+    serviceCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            isChecked = true;
+        }
+    });
+    
+    if (isChecked) {
+        errorDiv.style.display = 'none';
+        servicesGroup.style.borderColor = '';
+    } else {
+        errorDiv.style.display = 'block';
+        servicesGroup.style.borderColor = '#e74c3c';
+    }
+    
+    return isChecked;
+}
+
+function validateHeavyItems() {
+    const loadingCheckbox = document.getElementById('needLoading');
+    if (!loadingCheckbox.checked) return true; // Only validate if loading service is selected
+    
+    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]');
+    const errorDiv = document.getElementById('heavyItemsError');
+    const heavyItemsGroup = document.getElementById('heavyItemsGroup');
+    
+    let isChecked = false;
+    heavyItemCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            isChecked = true;
+        }
+    });
+    
+    if (isChecked) {
+        errorDiv.style.display = 'none';
+        heavyItemsGroup.style.borderColor = '';
+    } else {
+        errorDiv.style.display = 'block';
+        heavyItemsGroup.style.borderColor = '#e74c3c';
+    }
+    
+    return isChecked;
+}
+
+function validateTruck() {
+    const loadingCheckbox = document.getElementById('needLoading');
+    if (!loadingCheckbox.checked) return true;
+    
+    const truckCheckboxes = document.querySelectorAll('input[name="truck[]"]');
+    const errorDiv = document.getElementById('truckError');
+    const truckGroup = document.getElementById('truckGroup');
+    
+    let isChecked = false;
+    truckCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            isChecked = true;
+        }
+    });
+    
+    if (isChecked) {
+        errorDiv.style.display = 'none';
+        truckGroup.style.borderColor = '';
+    } else {
+        errorDiv.style.display = 'block';
+        truckGroup.style.borderColor = '#e74c3c';
+    }
+    
+    return isChecked;
+}
+
+function handleNoHeavyItems(checkbox) {
+    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
+    
+    if (checkbox.checked) {
+        // If "No heavy items" is checked, uncheck all other heavy items
+        heavyItemCheckboxes.forEach(cb => {
+            cb.checked = false;
+            const qtyInput = cb.parentNode.querySelector('.quantity-input');
+            if (qtyInput) {
+                qtyInput.classList.add('hidden');
+                qtyInput.value = '';
+            }
+        });
+    }
+}
+
+function toggleSection(sectionId, checkbox) {
+    const section = document.getElementById(sectionId);
+    const isVisible = checkbox.checked;
+    
+    section.classList.toggle('hidden', !isVisible);
+    
+    // Handle conditional required fields
+    const conditionalFields = section.querySelectorAll('[data-conditional-required="' + sectionId + '"]');
+    conditionalFields.forEach(field => {
+        if (isVisible) {
+            field.setAttribute('required', 'required');
+        } else {
+            field.removeAttribute('required');
+            field.value = '';
+        }
+    });
+    
+    // Clear heavy items when loading section is hidden
+    if (sectionId === 'loadingSection' && !isVisible) {
+        const heavyItemCheckboxes = section.querySelectorAll('input[name="heavy_items[]"]');
+        heavyItemCheckboxes.forEach(cb => {
+            cb.checked = false;
+            const qtyInput = cb.parentNode.querySelector('.quantity-input');
+            if (qtyInput) {
+                qtyInput.classList.add('hidden');
+                qtyInput.value = '';
+            }
+        });
+        const truckCheckboxes = section.querySelectorAll('input[name="truck[]"]');
+        heavyItemCheckboxes.forEach(cb => {
+            cb.checked = false;
+            const qtyInput = cb.parentNode.querySelector('.quantity-input');
+            if (qtyInput) {
+                qtyInput.classList.add('hidden');
+                qtyInput.value = '';
+            }
+        });
+        validateHeavyItems();
+        validateTruck();
+    }
+    
+    // Show/hide quantity inputs for heavy items - only add listeners once
+    if (sectionId === 'loadingSection' && isVisible) {
+        const heavyItemCheckboxes = section.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
+        heavyItemCheckboxes.forEach(cb => {
+            // Remove existing listeners to prevent duplicates
+            cb.removeEventListener('change', handleHeavyItemChange);
+            cb.addEventListener('change', handleHeavyItemChange);
+        });
+    }
+}
+
+function handleHeavyItemChange() {
+    const qtyInput = this.parentNode.querySelector('.quantity-input');
+    if (qtyInput) {
+        qtyInput.classList.toggle('hidden', !this.checked);
+        if (!this.checked) qtyInput.value = '';
+    }
+    
+    // If any other heavy item is selected, uncheck "No heavy items"
+    if (this.checked) {
+        document.getElementById('noheavy').checked = false;
+    }
+}
+
+// Form validation
+document.getElementById('movingForm').addEventListener('submit', function(e) {
+    // First check if at least one service is selected
+    if (!validateServices()) {
+        e.preventDefault();
+        // alert('Please select at least one service before submitting the form.');
+        document.getElementById('servicesGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+    
+    // Check heavy items validation if loading service is selected
+    if (document.getElementById('needLoading').checked && !validateHeavyItems()) {
+        e.preventDefault();
+        // alert('Please select at least one heavy/specialty item or indicate "No heavy items" for the Loading/Unloading service.');
+        document.getElementById('heavyItemsGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+    
+    // Check heavy items validation if loading service is selected
+    if (document.getElementById('needLoading').checked && !validateTruck()) {
+        e.preventDefault();
+        // alert('Please select at least one heavy/specialty item or indicate "No heavy items" for the Loading/Unloading service.');
+        document.getElementById('truckGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    // Then check other required fields
+    const requiredFields = this.querySelectorAll('[required]');
+    let isValid = true;
+    let firstInvalidField = null;
+    
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            isValid = false;
+            field.style.borderColor = '#e74c3c';
+            if (!firstInvalidField) {
+                firstInvalidField = field;
+            }
+        } else {
+            field.style.borderColor = '#27ae60';
+        }
+    });
+    
+    if (!isValid) {
+        e.preventDefault();
+        alert('Please fill in all required fields (marked with *).');
+        if (firstInvalidField) {
+            firstInvalidField.focus();
+            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+});
+
+// Initialize form on page load
+document.addEventListener('DOMContentLoaded', function() {
+    setMinDate();
+
+    // Set up heavy item checkboxes with proper event listeners
+    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
+    heavyItemCheckboxes.forEach(cb => {
+        cb.addEventListener('change', handleHeavyItemChange);
+    });
+});
+
+function setMinDate() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    const minDate = tomorrow.toISOString().split('T')[0];
+    
+    document.getElementById('moveDate').setAttribute('min', minDate);
+    document.getElementById('packingDate').setAttribute('min', minDate);
+    document.getElementById('rearrangingDate').setAttribute('min', minDate);
+    document.getElementById('unpackingDate').setAttribute('min', minDate);
+}
+</script>
+
+</body>
+</html>
