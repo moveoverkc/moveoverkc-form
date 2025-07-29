@@ -325,11 +325,11 @@ input:required:valid {
                     <input type="time" id="startTime" name="Start Time">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="startAddressGroup">
                 <label for="startAddress" class="required">Starting Address</label>
                 <input type="text" id="startAddress" name="Starting Address" required placeholder="Street address, city, state, zip">
             </div>
-            <div class="form-group">
+            <div class="form-group" id="endAddressGroup">
                 <label for="endAddress" class="required">Ending Address</label>
                 <input type="text" id="endAddress" name="Ending Address" required placeholder="Street address, city, state, zip">
             </div>
@@ -343,25 +343,47 @@ input:required:valid {
         <div id="loadingSection" class="toggle-section hidden">
             <h3>📦 Loading & Unloading Details</h3>
             
-            <h4>Moving Truck <span style="color: #e74c3c;">*</span></h4>
-            <div class="checkbox-group" id="truckGroup">
+            <h4>Service Type <span style="color: #e74c3c;">*</span></h4>
+            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select what type of loading/unloading service you need:</p>
+            <div class="checkbox-group" id="loadingTypeGroup">
                 <div class="checkbox-item">
-                    <input type="checkbox" id="Truck" name="truck[]" value="truck" onchange="validateTruck()">
-                    <label for="Truck">I would like Move Over KC to Provide a truck</label>
+                    <input type="checkbox" id="onlyLoading" name="loading_type[]" value="only_loading" onchange="validateLoadingType(); handleLoadingType()">
+                    <label for="onlyLoading">Only Loading</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="noTruck" name="truck[]" value="noTruck" onchange="validateTruck()">
-                    <label for="noTruck">I will provide my own truck/trailer</label>
+                    <input type="checkbox" id="onlyUnloading" name="loading_type[]" value="only_unloading" onchange="validateLoadingType(); handleLoadingType()">
+                    <label for="onlyUnloading">Only Unloading</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="bothLoadingUnloading" name="loading_type[]" value="both_loading_unloading" onchange="validateLoadingType(); handleLoadingType()">
+                    <label for="bothLoadingUnloading">Both Loading and Unloading</label>
                 </div>
             </div>
-            <div id="truckError" class="error-message heavy-items-error">
-                <strong>Please specify a truck option.</strong>
+            <div id="loadingTypeError" class="error-message heavy-items-error">
+                <strong>Please select a loading/unloading service type.</strong>
             </div>
             
+            <!-- Moving Truck Section - Hidden by default -->
+            <div id="truckSection" class="hidden">
+                <h4>Moving Truck <span style="color: #e74c3c;">*</span></h4>
+                <div class="checkbox-group" id="truckGroup">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Truck" name="truck[]" value="truck" onchange="validateTruck()">
+                        <label for="Truck">I would like Move Over KC to Provide a truck</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="noTruck" name="truck[]" value="noTruck" onchange="validateTruck()">
+                        <label for="noTruck">I will provide my own truck/trailer</label>
+                    </div>
+                </div>
+                <div id="truckError" class="error-message heavy-items-error">
+                    <strong>Please specify a truck option.</strong>
+                </div>
+            </div>
             
             <h4>Moving Details <span style="color: #e74c3c;">*</span></h4>
             <div class="form-row">
-                <div class="location-details">
+                <div class="location-details" id="startLocationDetails">
                     <h4>Starting Location</h4>
                     <div class="form-group">
                         <label for="startPropertyType" class="required">Property Type</label>
@@ -407,7 +429,7 @@ input:required:valid {
                     </div>
                 </div>
 
-                <div class="location-details">
+                <div class="location-details" id="endLocationDetails">
                     <h4>Ending Location</h4>
                     <div class="form-group">
                         <label for="endPropertyType" class="required">Property Type</label>
@@ -497,9 +519,9 @@ input:required:valid {
                     <label for="noheavy">No heavy items</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="other" name="heavy_items[]" value="other" onchange="validateHeavyItems()">
-                    <label for="other">Other item</label>
-                    <input type="number" class="quantity-input hidden" id="otherQty" name="other_qty" min="1" placeholder="Qty">
+                    <input type="checkbox" id="otherHeavy" name="heavy_items[]" value="other" onchange="validateHeavyItems()">
+                    <label for="otherHeavy">Other item</label>
+                    <input type="number" class="quantity-input hidden" id="otherHeavyQty" name="other_heavy_qty" min="1" placeholder="Qty">
                 </div>
             </div>
             <div id="heavyItemsError" class="error-message heavy-items-error">
@@ -511,8 +533,8 @@ input:required:valid {
                 <textarea id="specialItems" name="Special Items" rows="3" placeholder="Describe any other heavy, fragile, or specialty items"></textarea>
             </div>
 
-            <h4>Moving Equipment <span style="color: #e74c3c;">*</span></h4>
-            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select:</p>
+            <h4>Moving Equipment</h4>
+            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select any equipment needed:</p>
             <div class="checkbox-group" id="movingEquipmentGroup">
                 <div class="checkbox-item">
                     <input type="checkbox" id="straps" name="movingEquipment[]" value="straps" onchange="validatemovingEquipmentItems()">
@@ -530,18 +552,15 @@ input:required:valid {
                     <input type="number" class="quantity-input hidden" id="bagsQty" name="bags_qty" min="1" placeholder="Qty">
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="other" name="movingEquipment[]" value="other" onchange="validatemovingEquipmentItems()">
-                    <label for="other">Other (Please note)</label>
-                    <input type="number" class="quantity-input hidden" id="otherQty" name="other_qty" min="1" placeholder="Qty">
+                    <input type="checkbox" id="otherEquipment" name="movingEquipment[]" value="other" onchange="validatemovingEquipmentItems()">
+                    <label for="otherEquipment">Other (Please note)</label>
+                    <input type="number" class="quantity-input hidden" id="otherEquipmentQty" name="other_equipment_qty" min="1" placeholder="Qty">
                 </div>
-            </div>
-            <div id="heavyItemsError" class="error-message heavy-items-error">
-                <strong>Please select at least one heavy/specialty item or indicate "No heavy items".</strong>
             </div>
             
             <div class="form-group">
-                <label for="specialItems">Additional Moving Equipment</label>
-                <textarea id="specialItems" name="Special Items" rows="3" placeholder="Describe any other heavy, fragile, or specialty items"></textarea>
+                <label for="movingEquipmentDetails">Additional Moving Equipment</label>
+                <textarea id="movingEquipmentDetails" name="Moving Equipment Details" rows="3" placeholder="Describe any other moving equipment needed"></textarea>
             </div>
         </div>
 
@@ -565,6 +584,76 @@ input:required:valid {
             <div class="form-group">
                 <label for="fragileItems">Fragile/High-Value Items</label>
                 <textarea id="fragileItems" name="Fragile Items" rows="3" placeholder="Describe fragile or valuable items requiring special care"></textarea>
+            </div>
+
+            <h4>Packing Supplies </h4>
+            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select packing supplies that are needed:</p>
+            <div class="checkbox-group" id="packingSuppliesGroup">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="smallMovingBox" value="smallMovingBox" onchange="validatePackingSupplies()">
+                    <label for="smallMovingBox">Small Moving Boxes</label>
+                    <input type="number" class="quantity-input hidden" id="smallMovingBoxQty" name="smallMovingBox_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="mediumMovingBox" value="mediumMovingBox" onchange="validatePackingSupplies()">
+                    <label for="mediumMovingBox">Medium Moving Boxes</label>
+                    <input type="number" class="quantity-input hidden" id="mediumMovingBoxQty" name="mediumMovingBox_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="largeMovingBox" value="largeMovingBox" onchange="validatePackingSupplies()">
+                    <label for="largeMovingBox">Large Moving Boxes</label>
+                    <input type="number" class="quantity-input hidden" id="largeMovingBoxQty" name="largeMovingBox_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="extralargeMovingBox" value="extralargeMovingBox" onchange="validatePackingSupplies()">
+                    <label for="extralargeMovingBox">Extra Large Moving Boxes</label>
+                    <input type="number" class="quantity-input hidden" id="extralargeMovingBoxQty" name="extralargeMovingBox_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="tvMovingBox" value="tvMovingBox" onchange="validatePackingSupplies()">
+                    <label for="tvMovingBox">TV Moving Boxes</label>
+                    <input type="number" class="quantity-input hidden" id="tvMovingBoxQty" name="tvMovingBox_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="otherMovingBox" value="otherMovingBox" onchange="validatePackingSupplies()">
+                    <label for="otherMovingBox">Other Moving Box Boxes (please describe in notes)</label>
+                    <input type="number" class="quantity-input hidden" id="otherMovingBoxQty" name="otherMovingBox_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="tapeRoll" value="tapeRoll" onchange="validatePackingSupplies()">
+                    <label for="tapeRoll">Rolls of Tape</label>
+                    <input type="number" class="quantity-input hidden" id="tapeRollQty" name="tapeRoll_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="plasticRoll" value="plasticRoll" onchange="validatePackingSupplies()">
+                    <label for="plasticRoll">Rolls of Plastic Wrap</label>
+                    <input type="number" class="quantity-input hidden" id="plasticRollQty" name="plasticRoll_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="paperRoll" value="paperRoll" onchange="validatePackingSupplies()">
+                    <label for="paperRoll">Rolls of Packing Paper</label>
+                    <input type="number" class="quantity-input hidden" id="paperRollQty" name="paperRoll_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="bubbleWrap" value="bubbleWrap" onchange="validatePackingSupplies()">
+                    <label for="bubbleWrap">Rolls of Bubble Wrap</label>
+                    <input type="number" class="quantity-input hidden" id="bubbleWrapQty" name="bubbleWrap_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="fragileSticker" value="fragileSticker" onchange="validatePackingSupplies()">
+                    <label for="fragileSticker">Fragile Stickers</label>
+                    <input type="number" class="quantity-input hidden" id="fragileStickerQty" name="fragileSticker_qty" min="1" placeholder="Qty">
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="mattressBags" value="mattressBags" onchange="validatePackingSupplies()">
+                    <label for="mattressBags">Mattress Bags (please specify sizes in notes)</label>
+                    <input type="number" class="quantity-input hidden" id="mattressBagsQty" name="mattressBags_qty" min="1" placeholder="Qty">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="packingDetailsAdditionalNotes">Packing Detail Notes</label>
+                <textarea id="packingDetailsAdditionalNotes" name="Packing Detail Notes" rows="3" placeholder="Please describe any additional information about needed packing supplies"></textarea>
             </div>
         </div>
 
@@ -693,6 +782,32 @@ function validateServices() {
     return isChecked;
 }
 
+function validateLoadingType() {
+    const loadingCheckbox = document.getElementById('needLoading');
+    if (!loadingCheckbox.checked) return true; // Only validate if loading service is selected
+    
+    const loadingTypeCheckboxes = document.querySelectorAll('input[name="loading_type[]"]');
+    const errorDiv = document.getElementById('loadingTypeError');
+    const loadingTypeGroup = document.getElementById('loadingTypeGroup');
+    
+    let isChecked = false;
+    loadingTypeCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            isChecked = true;
+        }
+    });
+    
+    if (isChecked) {
+        errorDiv.style.display = 'none';
+        loadingTypeGroup.style.borderColor = '';
+    } else {
+        errorDiv.style.display = 'block';
+        loadingTypeGroup.style.borderColor = '#e74c3c';
+    }
+    
+    return isChecked;
+}
+
 function validateHeavyItems() {
     const loadingCheckbox = document.getElementById('needLoading');
     if (!loadingCheckbox.checked) return true; // Only validate if loading service is selected
@@ -721,7 +836,8 @@ function validateHeavyItems() {
 
 function validateTruck() {
     const loadingCheckbox = document.getElementById('needLoading');
-    if (!loadingCheckbox.checked) return true;
+    const bothLoadingUnloading = document.getElementById('bothLoadingUnloading');
+    if (!loadingCheckbox.checked || !bothLoadingUnloading.checked) return true;
     
     const truckCheckboxes = document.querySelectorAll('input[name="truck[]"]');
     const errorDiv = document.getElementById('truckError');
@@ -744,6 +860,156 @@ function validateTruck() {
     
     return isChecked;
 }
+
+function validatemovingEquipmentItems() {
+    // This is optional equipment, so no validation needed
+    // Just handle the quantity input visibility
+    const checkbox = event.target;
+    const qtyInput = checkbox.parentNode.querySelector('.quantity-input');
+    if (qtyInput) {
+        qtyInput.classList.toggle('hidden', !checkbox.checked);
+        if (!checkbox.checked) qtyInput.value = '';
+    }
+}
+
+function validatePackingSupplies(){
+    const checkbox = event.target;
+    const qtyInput = checkbox.parentNode.querySelector('.quantity-input');
+    if (qtyInput) {
+        qtyInput.classList.toggle('hidden', !checkbox.checked);
+        if (!checkbox.checked) qtyInput.value = '';
+    }
+}
+
+function handleLoadingType() {
+    const onlyLoading = document.getElementById('onlyLoading');
+    const onlyUnloading = document.getElementById('onlyUnloading');
+    const bothLoadingUnloading = document.getElementById('bothLoadingUnloading');
+    
+    // Only allow one selection
+    const loadingTypeCheckboxes = document.querySelectorAll('input[name="loading_type[]"]');
+    loadingTypeCheckboxes.forEach(cb => {
+        if (cb !== event.target) {
+            cb.checked = false;
+        }
+    });
+    
+    // Show/hide truck section based on selection
+    const truckSection = document.getElementById('truckSection');
+    if (bothLoadingUnloading.checked) {
+        truckSection.classList.remove('hidden');
+    } else {
+        truckSection.classList.add('hidden');
+        // Clear truck selections when hidden
+        const truckCheckboxes = document.querySelectorAll('input[name="truck[]"]');
+        truckCheckboxes.forEach(cb => cb.checked = false);
+        validateTruck();
+    }
+    
+    // Handle address requirements and location details
+    const startAddressGroup = document.getElementById('startAddressGroup');
+    const endAddressGroup = document.getElementById('endAddressGroup');
+    const startAddress = document.getElementById('startAddress');
+    const endAddress = document.getElementById('endAddress');
+    const startLocationDetails = document.getElementById('startLocationDetails');
+    const endLocationDetails = document.getElementById('endLocationDetails');
+    
+    if (onlyLoading.checked) {
+        // Only Loading: hide ending address and ending location details
+        endAddressGroup.classList.add('hidden');
+        endAddress.removeAttribute('required');
+        endAddress.value = '';
+        endLocationDetails.classList.add('hidden');
+        
+        startAddressGroup.classList.remove('hidden');
+        startAddress.setAttribute('required', 'required');
+        startLocationDetails.classList.remove('hidden');
+
+        requireEndLocationDetails(false);
+        requireStartLocationDetails(true);
+    } else if (onlyUnloading.checked) {
+        // Only Unloading: hide starting address and starting location details
+        startAddressGroup.classList.add('hidden');
+        startAddress.removeAttribute('required');
+        startAddress.value = '';
+        startLocationDetails.classList.add('hidden');
+        
+        endAddressGroup.classList.remove('hidden');
+        endAddress.setAttribute('required', 'required');
+        endLocationDetails.classList.remove('hidden');
+
+        requireEndLocationDetails(true);
+        requireStartLocationDetails(false);
+    } else if (bothLoadingUnloading.checked) {
+        // Both: show both addresses and location details
+        startAddressGroup.classList.remove('hidden');
+        endAddressGroup.classList.remove('hidden');
+        startAddress.setAttribute('required', 'required');
+        endAddress.setAttribute('required', 'required');
+        startLocationDetails.classList.remove('hidden');
+        endLocationDetails.classList.remove('hidden');
+
+        requireEndLocationDetails(true);
+        requireStartLocationDetails(true);
+    } else {
+        // No selection: show both but don't require
+        startAddressGroup.classList.remove('hidden');
+        endAddressGroup.classList.remove('hidden');
+        startLocationDetails.classList.remove('hidden');
+        endLocationDetails.classList.remove('hidden');
+
+        requireEndLocationDetails(false);
+        requireStartLocationDetails(false);
+    }
+}
+
+
+const endPropertyType = document.getElementById('endPropertyType');
+const endStairs = document.getElementById('endStairs');
+const endFloor = document.getElementById('endFloor');
+const endElevator = document.getElementById('endElevator');
+const endParking = document.getElementById('endParking');
+
+function requireEndLocationDetails(value){
+    if(value === true){
+        endPropertyType.setAttribute('required', 'required');
+        endStairs.setAttribute('required', 'required');
+        endFloor.setAttribute('required', 'required');
+        endElevator.setAttribute('required', 'required');
+        endParking.setAttribute('required', 'required');
+    }
+    else{
+        endPropertyType.removeAttribute('required');
+        endStairs.removeAttribute('required');
+        endFloor.removeAttribute('required');
+        endElevator.removeAttribute('required');
+        endParking.removeAttribute('required');
+    }
+}
+
+const startPropertyType = document.getElementById('startPropertyType');
+const startStairs = document.getElementById('startStairs');
+const startFloor = document.getElementById('startFloor');
+const startElevator = document.getElementById('startElevator');
+const startParking = document.getElementById('startParking');
+
+function requireStartLocationDetails(value){
+    if(value === true){
+        startPropertyType.setAttribute('required', 'required');
+        startStairs.setAttribute('required', 'required');
+        startFloor.setAttribute('required', 'required');
+        startElevator.setAttribute('required', 'required');
+        startParking.setAttribute('required', 'required');
+    }
+    else{
+        startPropertyType.removeAttribute('required');
+        startStairs.removeAttribute('required');
+        startFloor.removeAttribute('required');
+        startElevator.removeAttribute('required');
+        startParking.removeAttribute('required');
+    }
+}
+
 
 function handleNoHeavyItems(checkbox) {
     const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
@@ -778,7 +1044,7 @@ function toggleSection(sectionId, checkbox) {
         }
     });
     
-    // Clear heavy items when loading section is hidden
+    // Clear loading section specific data when hidden
     if (sectionId === 'loadingSection' && !isVisible) {
         const heavyItemCheckboxes = section.querySelectorAll('input[name="heavy_items[]"]');
         heavyItemCheckboxes.forEach(cb => {
@@ -790,16 +1056,28 @@ function toggleSection(sectionId, checkbox) {
             }
         });
         const truckCheckboxes = section.querySelectorAll('input[name="truck[]"]');
-        heavyItemCheckboxes.forEach(cb => {
+        truckCheckboxes.forEach(cb => {
             cb.checked = false;
-            const qtyInput = cb.parentNode.querySelector('.quantity-input');
-            if (qtyInput) {
-                qtyInput.classList.add('hidden');
-                qtyInput.value = '';
-            }
         });
+        const loadingTypeCheckboxes = section.querySelectorAll('input[name="loading_type[]"]');
+        loadingTypeCheckboxes.forEach(cb => {
+            cb.checked = false;
+        });
+        
+        // Reset address requirements
+        const startAddress = document.getElementById('startAddress');
+        const endAddress = document.getElementById('endAddress');
+        const startAddressGroup = document.getElementById('startAddressGroup');
+        const endAddressGroup = document.getElementById('endAddressGroup');
+        
+        startAddressGroup.classList.remove('hidden');
+        endAddressGroup.classList.remove('hidden');
+        startAddress.setAttribute('required', 'required');
+        endAddress.setAttribute('required', 'required');
+        
         validateHeavyItems();
         validateTruck();
+        validateLoadingType();
     }
     
     // Show/hide quantity inputs for heavy items - only add listeners once
@@ -831,23 +1109,27 @@ document.getElementById('movingForm').addEventListener('submit', function(e) {
     // First check if at least one service is selected
     if (!validateServices()) {
         e.preventDefault();
-        // alert('Please select at least one service before submitting the form.');
         document.getElementById('servicesGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+    
+    // Check loading type validation if loading service is selected
+    if (document.getElementById('needLoading').checked && !validateLoadingType()) {
+        e.preventDefault();
+        document.getElementById('loadingTypeGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
     }
     
     // Check heavy items validation if loading service is selected
     if (document.getElementById('needLoading').checked && !validateHeavyItems()) {
         e.preventDefault();
-        // alert('Please select at least one heavy/specialty item or indicate "No heavy items" for the Loading/Unloading service.');
         document.getElementById('heavyItemsGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
     }
     
-    // Check heavy items validation if loading service is selected
-    if (document.getElementById('needLoading').checked && !validateTruck()) {
+    // Check truck validation if loading service is selected and both loading/unloading is selected
+    if (document.getElementById('needLoading').checked && document.getElementById('bothLoadingUnloading').checked && !validateTruck()) {
         e.preventDefault();
-        // alert('Please select at least one heavy/specialty item or indicate "No heavy items" for the Loading/Unloading service.');
         document.getElementById('truckGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
     }
