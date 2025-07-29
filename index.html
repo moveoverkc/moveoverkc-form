@@ -318,6 +318,10 @@ input:required:valid {
                     <input type="checkbox" id="needJunkRemoval" name="services[]" value="junkRemoval" onchange="toggleSection('junkRemovalSection', this); validateServices()">
                     <label for="needJunkRemoval">Junk Removal</label>
                 </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="needOtherService" name="services[]" value="otherService" onchange="toggleSection('otherServiceSelection', this); validateServices()">
+                    <label for="needOtherService">Other Service(s) Not Listed</label>
+                </div>
             </div>
             <div id="servicesError" class="error-message services-error">
                 <strong>Please select at least one service to continue.</strong>
@@ -722,6 +726,15 @@ input:required:valid {
             <div class="form-group">
                 <label for="junkRemovalDetails" class="required">Please list all items to be hauled and desired dumping location</label>
                 <textarea id="junkRemovalDetails" name="Junk Removal Details" rows="3" placeholder="Items to be hauled" data-conditional-required="junkRemovalSection"></textarea>
+            </div>
+        </div>
+        
+        <!-- Other Services Section -->
+        <div id="otherServiceSelection" class="toggle-section hidden">
+            <h3>🛎️Other Service(s) details</h3>
+            <div class="form-group">
+                <label for="otherServiceDetails" class="required">Please list what service(s) you require. Include as much detail as possible.</label>
+                <textarea id="otherServiceDetails" name="Other Service Needed" rows="3" placeholder="Include all details about the services needed" data-conditional-required="otherServiceSelection"></textarea>
             </div>
         </div>
 
