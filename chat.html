@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Move Over KC — Text a Kansas City Moving Crew</title>
+<meta name="description" content="Booking Move Over KC is one text. Loading, packing, junk removal and heavy items across the Kansas City metro. Call or text 660-351-4699.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MovingCompany",
+  "name": "Move Over KC",
+  "url": "https://www.moveoverkc.com/",
+  "telephone": "+1-660-351-4699",
+  "email": "MoveOverKC@gmail.com",
+  "areaServed": "Kansas City Metropolitan Area"
+}
+</script>
+<style>
+  :root{
+    --stage:#101216;
+    --phone:#000;
+    --screen:#F4F4F6;
+    --bar:#FBFBFD;
+    --them:#E9E9EB;      /* incoming bubble */
+    --them-ink:#111;
+    --me:#34C759;        /* SMS green */
+    --me-ink:#fff;
+    --accent:#0A84FF;
+    --receipt:#FDFBF4;
+    --mono:"SFMono-Regular",ui-monospace,Consolas,Menlo,monospace;
+    --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--stage);font-family:var(--sys);color:#111;
+    -webkit-font-smoothing:antialiased}
+  button{font-family:var(--sys)}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+  /* ---------- stage (desktop backdrop) ---------- */
+  .stage{
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;
+    justify-content:flex-start;padding:40px 16px 56px;gap:22px;
+  }
+  .stage-note{
+    color:#8B929E;font-size:14px;text-align:center;max-width:44ch;line-height:1.5;
+  }
+  .stage-note strong{color:#E8EAEE;font-weight:600}
+
+  /* ---------- phone frame ---------- */
+  .phone{
+    width:min(420px,100%);
+    height:min(860px,88vh);
+    background:var(--phone);
+    border-radius:44px;
+    padding:10px;
+    box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 1px #2a2d33;
+    display:flex;
+  }
+  .screen{
+    background:var(--screen);border-radius:36px;overflow:hidden;
+    display:flex;flex-direction:column;flex:1;position:relative;
+  }
+
+  /* ---------- status + contact bars ---------- */
+  .statusbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 22px 4px;background:var(--bar);
+    font-size:13px;font-weight:600;
+  }
+  .statusbar .icons{letter-spacing:2px;font-size:12px}
+  .contactbar{
+    background:var(--bar);border-bottom:1px solid #E3E3E6;
+    display:flex;align-items:center;gap:11px;padding:8px 14px 12px;
+  }
+  .avatar{
+    width:42px;height:42px;border-radius:50%;
+    background:linear-gradient(135deg,#C0361C,#8E2411);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;letter-spacing:.5px;flex:0 0 auto;
+  }
+  .contact-info{flex:1;min-width:0}
+  .contact-name{font-weight:700;font-size:16px;line-height:1.1}
+  .contact-sub{font-size:12px;color:#5f6570}
+  .contact-sub .dot{color:var(--me)}
+  .callbtn{
+    flex:0 0 auto;text-decoration:none;
+    width:38px;height:38px;border-radius:50%;
+    background:var(--me);color:#fff;font-size:17px;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  /* ---------- thread ---------- */
+  .thread{
+    flex:1;overflow-y:auto;padding:16px 14px 12px;
+    display:flex;flex-direction:column;gap:4px;
+    background:
+      linear-gradient(rgba(244,244,246,.94),rgba(244,244,246,.94)),
+      repeating-linear-gradient(45deg,#e6e2d8 0 2px,transparent 2px 26px);
+  }
+  .tstamp{
+    align-self:center;font-size:11px;color:#8a8f98;font-weight:600;
+    margin:10px 0 6px;
+  }
+  .row{display:flex;width:100%}
+  .row.them{justify-content:flex-start}
+  .row.me{justify-content:flex-end}
+  .bubble{
+    max-width:78%;padding:9px 13px;border-radius:18px;
+    font-size:15.5px;line-height:1.38;word-wrap:break-word;white-space:pre-line;
+  }
+  .them .bubble{background:var(--them);color:var(--them-ink);border-bottom-left-radius:5px}
+  .me .bubble{background:var(--me);color:var(--me-ink);border-bottom-right-radius:5px}
+  .bubble.summary{
+    background:#fff;border:1.5px dashed #b9bec7;color:#111;
+    font-family:var(--mono);font-size:13px;line-height:1.55;
+  }
+  .delivered{
+    align-self:flex-end;font-size:11px;color:#8a8f98;font-weight:600;margin:2px 4px 4px 0;
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .row{animation:pop .18s ease-out}
+    @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+  }
+  /* typing indicator */
+  .typing .bubble{display:flex;gap:5px;align-items:center;padding:13px 15px}
+  .typing i{
+    width:7px;height:7px;border-radius:50%;background:#9aa0aa;display:block;
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .typing i{animation:blink 1.2s infinite}
+    .typing i:nth-child(2){animation-delay:.18s}
+    .typing i:nth-child(3){animation-delay:.36s}
+    @keyframes blink{0%,60%,100%{opacity:.35}30%{opacity:1}}
+  }
+
+  /* ---------- composer ---------- */
+  .composer{
+    background:var(--bar);border-top:1px solid #E3E3E6;
+    padding:10px 12px calc(12px + env(safe-area-inset-bottom));
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    border:1.5px solid var(--accent);color:var(--accent);background:#fff;
+    border-radius:999px;padding:9px 15px;font-size:14px;font-weight:600;
+    cursor:pointer;transition:background .12s;
+  }
+  .chip:hover{background:#EAF3FF}
+  .chip.primary{background:var(--accent);color:#fff}
+  .chip.green{border-color:var(--me);background:var(--me);color:#fff}
+  .chip.quiet{border-color:#c4c9d2;color:#5f6570}
+  .inputrow{display:none;gap:8px}
+  .inputrow input{
+    flex:1;font-size:16px;padding:11px 15px;border-radius:999px;
+    border:1.5px solid #c9cdd5;background:#fff;font-family:var(--sys);
+  }
+  .sendbtn{
+    width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--me);color:#fff;font-size:18px;flex:0 0 auto;
+  }
+
+  /* ---------- receipt footer (static, crawlable) ---------- */
+  .receipt{
+    width:min(420px,100%);background:var(--receipt);color:#1c1a14;
+    font-family:var(--mono);font-size:12.5px;line-height:1.7;
+    padding:26px 24px 34px;
+    clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),
+      95% 100%,90% calc(100% - 10px),85% 100%,80% calc(100% - 10px),
+      75% 100%,70% calc(100% - 10px),65% 100%,60% calc(100% - 10px),
+      55% 100%,50% calc(100% - 10px),45% 100%,40% calc(100% - 10px),
+      35% 100%,30% calc(100% - 10px),25% 100%,20% calc(100% - 10px),
+      15% 100%,10% calc(100% - 10px),5% 100%,0 calc(100% - 10px));
+    box-shadow:0 18px 40px rgba(0,0,0,.45);
+  }
+  .receipt h1{font-size:17px;letter-spacing:.14em;text-align:center;margin-bottom:2px}
+  .receipt .sub{text-align:center;letter-spacing:.06em;margin-bottom:14px}
+  .receipt hr{border:none;border-top:1.5px dashed #b7ae97;margin:12px 0}
+  .receipt .line{display:flex;justify-content:space-between;gap:12px}
+  .receipt a{font-weight:600}
+  .receipt .big{font-size:15px;font-weight:700;text-align:center;letter-spacing:.04em}
+  .receipt .center{text-align:center}
+
+  @media (max-width:600px){
+    .stage{padding:0 0 40px;gap:0}
+    .stage-note{order:2;padding:22px 24px 6px}
+    .phone{width:100%;height:100dvh;border-radius:0;padding:0;box-shadow:none}
+    .screen{border-radius:0}
+    .receipt{order:3;width:100%;clip-path:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <div class="phone" role="region" aria-label="Chat with Move Over KC">
+    <div class="screen">
+
+      <div class="statusbar" aria-hidden="true">
+        <span id="clock">9:41</span>
+        <span class="icons">▂▄▆ ᯤ ▮</span>
+      </div>
+
+      <div class="contactbar">
+        <div class="avatar" aria-hidden="true">MO</div>
+        <div class="contact-info">
+          <div class="contact-name">Move Over KC</div>
+          <div class="contact-sub"><span class="dot">●</span> Usually replies in minutes</div>
+        </div>
+        <a class="callbtn" href="tel:16603514699" aria-label="Call Move Over KC at 660-351-4699">✆</a>
+      </div>
+
+      <div class="thread" id="thread" aria-live="polite"></div>
+
+      <div class="composer">
+        <div class="chips" id="chips" role="group" aria-label="Quick replies"></div>
+        <div class="inputrow" id="inputrow">
+          <input id="userinput" type="text" autocomplete="off" aria-label="Type your reply">
+          <button class="sendbtn" id="sendbtn" aria-label="Send">↑</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="stage-note"><strong>Yes, this is the whole website.</strong> That's the point — booking this crew is one text. Tap through, and your answers become a real message to them.</p>
+
+  <!-- Static, crawlable business info -->
+  <footer class="receipt">
+    <h1>MOVE OVER KC</h1>
+    <p class="sub">* PROFESSIONAL MOVING SERVICES *</p>
+    <hr>
+    <p class="line"><span>Loading / unloading</span><span>your truck or ours</span></p>
+    <p class="line"><span>Packing / unpacking</span><span>supplies included</span></p>
+    <p class="line"><span>Furniture rearranging</span><span>no scuffed walls</span></p>
+    <p class="line"><span>Junk removal</span><span>we haul it off</span></p>
+    <hr>
+    <p class="line"><span>Heavy items</span><span>pianos · safes · appliances</span></p>
+    <p class="line"><span>Service area</span><span>KC metro — MO &amp; KS</span></p>
+    <p class="line"><span>Quotes</span><span>free, scoped by photo</span></p>
+    <hr>
+    <p class="big">CALL / TEXT: <a href="tel:16603514699">660-351-4699</a></p>
+    <p class="center"><a href="mailto:MoveOverKC@gmail.com">MoveOverKC@gmail.com</a></p>
+    <hr>
+    <p class="center">© <span id="yr"></span> MOVE OVER KC — THANK YOU, COME AGAIN</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var PHONE = '16603514699';
+  var EMAIL = 'MoveOverKC@gmail.com';
+  var thread = document.getElementById('thread');
+  var chipsEl = document.getElementById('chips');
+  var inputrow = document.getElementById('inputrow');
+  var input = document.getElementById('userinput');
+  var sendbtn = document.getElementById('sendbtn');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var state = { service:'', detail:'', name:'', date:'', from:'', to:'' };
+  var inputHandler = null;
+
+  /* clock + year */
+  function tick(){
+    var d = new Date(), h = d.getHours(), m = d.getMinutes();
+    var hh = ((h % 12) || 12), mm = (m < 10 ? '0' : '') + m;
+    document.getElementById('clock').textContent = hh + ':' + mm;
+  }
+  tick(); setInterval(tick, 30000);
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  function scrollDown(){ thread.scrollTop = thread.scrollHeight; }
+
+  function stamp(text){
+    var t = document.createElement('div');
+    t.className = 'tstamp'; t.textContent = text;
+    thread.appendChild(t); scrollDown();
+  }
+
+  function bubble(who, text, cls){
+    var row = document.createElement('div');
+    row.className = 'row ' + who;
+    var b = document.createElement('div');
+    b.className = 'bubble' + (cls ? ' ' + cls : '');
+    b.textContent = text;
+    row.appendChild(b);
+    thread.appendChild(row); scrollDown();
+    return row;
+  }
+
+  function meSay(text){
+    bubble('me', text);
+    var old = thread.querySelector('.delivered');
+    if (old) old.remove();
+    var d = document.createElement('div');
+    d.className = 'delivered'; d.textContent = 'Delivered';
+    thread.appendChild(d); scrollDown();
+  }
+
+  /* queue incoming messages with typing indicator */
+  function themSay(msgs, done){
+    var list = Array.isArray(msgs) ? msgs.slice() : [msgs];
+    function next(){
+      if (!list.length){ if (done) done(); return; }
+      var msg = list.shift();
+      if (reduced){
+        if (typeof msg === 'object') bubble('them', msg.text, msg.cls);
+        else bubble('them', msg);
+        next(); return;
+      }
+      var t = document.createElement('div');
+      t.className = 'row them typing';
+      t.innerHTML = '<div class="bubble"><i></i><i></i><i></i></div>';
+      thread.appendChild(t); scrollDown();
+      setTimeout(function(){
+        t.remove();
+        if (typeof msg === 'object') bubble('them', msg.text, msg.cls);
+        else bubble('them', msg);
+        setTimeout(next, 320);
+      }, 650);
+    }
+    next();
+  }
+
+  function setChips(items){
+    chipsEl.innerHTML = '';
+    chipsEl.style.display = 'flex';
+    inputrow.style.display = 'none';
+    items.forEach(function(it){
+      if (it.href){
+        var a = document.createElement('a');
+        a.className = 'chip ' + (it.cls || '');
+        a.textContent = it.t;
+        a.href = it.href;
+        a.style.textDecoration = 'none';
+        chipsEl.appendChild(a);
+        return;
+      }
+      var b = document.createElement('button');
+      b.className = 'chip ' + (it.cls || '');
+      b.type = 'button';
+      b.textContent = it.t;
+      b.onclick = function(){
+        meSay(it.say || it.t);
+        chipsEl.innerHTML = '';
+        it.go();
+      };
+      chipsEl.appendChild(b);
+    });
+  }
+
+  function askInput(placeholder, onValue){
+    chipsEl.style.display = 'none';
+    inputrow.style.display = 'flex';
+    input.value = '';
+    input.placeholder = placeholder;
+    input.focus();
+    inputHandler = function(){
+      var val = input.value.trim();
+      if (!val) return;
+      inputrow.style.display = 'none';
+      meSay(val);
+      onValue(val);
+    };
+  }
+  sendbtn.onclick = function(){ if (inputHandler) inputHandler(); };
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' && inputHandler) inputHandler();
+  });
+
+  /* ---------- conversation nodes ---------- */
+
+  function start(){
+    stamp('Today ' + document.getElementById('clock').textContent);
+    themSay([
+      'Hey! 👋 Move Over KC here — real Kansas City crew, real gear.',
+      "What's the job?"
+    ], function(){
+      setChips([
+        {t:'Moving my whole place', go:whole},
+        {t:'Heavy item(s) 🏋️', go:heavy},
+        {t:'Junk removal 🚮', go:junk},
+        {t:'Packing help 📦', go:pack},
+        {t:'Rearranging furniture 🛋️', go:rearr}
+      ]);
+    });
+  }
+
+  function mainChips(){
+    setChips([
+      {t:'Get a quote →', cls:'primary', go:qName},
+      {t:'What area do you cover?', go:area},
+      {t:'📞 Call instead', href:'tel:' + PHONE, cls:'green'},
+      {t:'Start over', cls:'quiet', say:'Start over', go:restart}
+    ]);
+  }
+
+  function whole(){
+    state.service = 'Full move (loading, hauling, unloading)';
+    themSay([
+      'Easy. We load, we haul, we unload — your truck or ours. 🚚',
+      'Stairs, storage units, third-floor walk-ups… all fine.'
+    ], mainChips);
+  }
+
+  function heavy(){
+    state.service = 'Heavy item(s)';
+    themSay([
+      'Pianos, safes, appliances, treadmills — the fun stuff. 💪',
+      'We bring ratchet straps, moving blankets and enough hands.',
+      'Stairs involved?'
+    ], function(){
+      setChips([
+        {t:'Yes… stairs 😬', go:function(){
+          state.detail = 'stairs involved';
+          themSay(["Good to know — that's exactly why you text us and not your brother-in-law. Extra crew, mattress bags, zero wall scuffs."], mainChips);
+        }},
+        {t:'Nope, ground floor', go:function(){
+          state.detail = 'ground floor';
+          themSay(['Even easier. 😎'], mainChips);
+        }}
+      ]);
+    });
+  }
+
+  function junk(){
+    state.service = 'Junk removal';
+    themSay([
+      'Tell us what goes — furniture, appliances, the garage pile.',
+      'We haul it to the dump or donation. Gone. 🗑️'
+    ], mainChips);
+  }
+
+  function pack(){
+    state.service = 'Packing help';
+    themSay([
+      'We show up with boxes, tape, paper and bubble wrap, and pack room by room. 📦',
+      'Fragile and high-value stuff gets flagged and wrapped extra.'
+    ], mainChips);
+  }
+
+  function rearr(){
+    state.service = 'Furniture rearranging';
+    themSay([
+      'New layout, same address — we shift the big pieces between rooms or floors.',
+      'No scuffed walls, no thrown-out backs. 🛋️'
+    ], mainChips);
+  }
+
+  function area(){
+    themSay([
+      'The whole KC metro — both sides of the state line, Missouri and Kansas. 🗺️',
+      'Outside the metro? Ask. We travel.'
+    ], mainChips);
+  }
+
+  /* ---------- quote flow ---------- */
+
+  function qName(){
+    themSay(["Let's do it. What's your name?"], function(){
+      askInput('Your name…', function(v){
+        state.name = v; qDate();
+      });
+    });
+  }
+
+  function qDate(){
+    themSay(['When are we doing this, ' + state.name.split(' ')[0] + '?'], function(){
+      setChips([
+        {t:'This week', go:function(){ state.date='This week'; qFrom(); }},
+        {t:'This month', go:function(){ state.date='This month'; qFrom(); }},
+        {t:'Flexible', go:function(){ state.date='Flexible'; qFrom(); }},
+        {t:'Type a date', say:'Let me type it', go:function(){
+          askInput('e.g. Aug 9', function(v){ state.date = v; qFrom(); });
+        }}
+      ]);
+    });
+  }
+
+  function qFrom(){
+    themSay(['Where from? City or zip.'], function(){
+      askInput('e.g. Raytown / 64133', function(v){ state.from = v; qTo(); });
+    });
+  }
+
+  function qTo(){
+    themSay(['And where to?'], function(){
+      askInput('e.g. Liberty / 64068', function(v){ state.to = v; qDone(); });
+    });
+  }
+
+  function composeBody(){
+    return 'Hi, it\'s ' + state.name + '. Requesting a moving quote.\n'
+      + 'Job: ' + (state.service || 'Move') + (state.detail ? ' (' + state.detail + ')' : '') + '\n'
+      + 'Date: ' + state.date + '\n'
+      + 'From: ' + state.from + '\n'
+      + 'To: ' + state.to + '\n'
+      + '(Sent from moveoverkc.com)';
+  }
+
+  function qDone(){
+    var summary = 'TO: Move Over KC\n'
+      + 'NAME: ' + state.name + '\n'
+      + 'JOB: ' + (state.service || 'Move') + (state.detail ? ' — ' + state.detail : '') + '\n'
+      + 'DATE: ' + state.date + '\n'
+      + 'FROM: ' + state.from + '\n'
+      + 'TO: ' + state.to;
+    themSay([
+      'Perfect. Here\'s your text, ready to go:',
+      {text: summary, cls:'summary'},
+      'One tap opens your messages — hit send and it lands on our phone for real. 📲',
+      'Pro tip: after that, text us photos of the items, stairs and doorways. We scope every job by photo, so the price is right the first time.'
+    ], function(){
+      var body = encodeURIComponent(composeBody());
+      setChips([
+        {t:'💬 Send it as a real text', cls:'green', href:'sms:' + PHONE + '?&body=' + body},
+        {t:'✉️ Email instead', href:'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Moving Quote — ' + state.name) + '&body=' + body},
+        {t:'📞 Call instead', href:'tel:' + PHONE},
+        {t:'Start over', cls:'quiet', say:'Start over', go:restart}
+      ]);
+    });
+  }
+
+  function restart(){
+    state = { service:'', detail:'', name:'', date:'', from:'', to:'' };
+    themSay(['No problem — from the top. What\'s the job?'], function(){
+      setChips([
+        {t:'Moving my whole place', go:whole},
+        {t:'Heavy item(s) 🏋️', go:heavy},
+        {t:'Junk removal 🚮', go:junk},
+        {t:'Packing help 📦', go:pack},
+        {t:'Rearranging furniture 🛋️', go:rearr}
+      ]);
+    });
+  }
+
+  start();
+})();
+</script>
+
+</body>
+</html>
