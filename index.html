@@ -2,1218 +2,1010 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Move Over KC - Client Intake Form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Move Over KC — Kansas City Moving Crew | Loading, Packing, Junk Removal</title>
+<meta name="description" content="Follow the truck: loading, packing, heavy items and junk removal across the Kansas City metro. Your truck or ours. Call or text 660-351-4699.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Overpass:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MovingCompany",
+  "name": "Move Over KC",
+  "url": "https://www.moveoverkc.com/",
+  "telephone": "+1-660-351-4699",
+  "email": "MoveOverKC@gmail.com",
+  "areaServed": "Kansas City Metropolitan Area"
+}
+</script>
 <style>
-body { 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    margin: 0; 
-    padding: 20px;
-    background: black;
-    min-height: 100vh;
-}
+  :root{
+    --road-left:clamp(14px,5vw,84px);
+    --road-w:clamp(58px,11vw,116px);
+    --gutter:clamp(16px,4vw,52px);
+    --asphalt:#3A3D42;
+    --asphalt-edge:#54575D;
+    --dash:#F2C300;
+    --sign-green:#1E7A3C;
+    --kc-red:#C0361C;
+    --ink:#17130E;
+    --paper:#FFFDF6;
+    --slab:"Alfa Slab One",Georgia,serif;
+    --hwy:"Overpass",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"SFMono-Regular",ui-monospace,Consolas,Menlo,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--hwy);color:var(--ink);line-height:1.55;
+    background:linear-gradient(180deg,
+      #FFD9A0 0%, #CBE8F7 14%, #A9DCF3 42%, #9AD4EF 62%,
+      #FFD9A6 78%, #F0E9DC 86%, #14161B 92%, #14161B 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--kc-red);outline-offset:3px}
 
-.container { 
-    max-width: 900px; 
-    margin: 0 auto; 
-    background: #fff; 
-    padding: 3em; 
-    border-radius: 12px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
+  /* ============ top bar ============ */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:70;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:10px clamp(14px,4vw,32px);
+    background:rgba(255,253,246,.9);backdrop-filter:blur(8px);
+    border-bottom:2px solid var(--ink);
+  }
+  .wordmark{
+    font-family:var(--slab);font-size:clamp(17px,3.6vw,22px);
+    text-decoration:none;letter-spacing:.01em;line-height:1;
+  }
+  .wordmark span{color:var(--kc-red)}
+  .topnav{display:flex;gap:20px}
+  .topnav a{
+    font-weight:700;font-size:14px;text-decoration:none;
+    border-bottom:2px solid transparent;padding-bottom:2px;
+  }
+  .topnav a:hover{border-bottom-color:var(--kc-red)}
+  .top-call{
+    font-weight:800;font-size:13px;text-decoration:none;white-space:nowrap;
+    background:var(--kc-red);color:#fff;padding:9px 14px;border-radius:6px;
+  }
+  @media (max-width:820px){.topnav{display:none}}
 
-header { 
-    text-align: center; 
-    margin-bottom: 1em; 
-}
-
-h1 { 
-    color: #004d80; 
-    font-size: 2.5em; 
-    margin-top: 0em;
-    margin-bottom: 0em; 
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-h4 { 
-    color: #000000; 
-    font-size: 1em; 
-    margin-top: 0em;
-    margin-bottom: 0em; 
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-.subtitle {
-    color: #666;
-    font-size: 1.2em;
-    margin-bottom: 0em;
-    margin-top: .5em;
-}
-
-.form-section {
-    background: #f8f9fa;
-    padding: 1em;
-    margin: 1.5em 0;
-    border-radius: 8px;
-    border-left: 4px solid #004d80;
-}
-
-.form-section h2 {
-    color: #004d80;
-    margin-top: 0;
-    font-size: 1.5em;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.form-section h3 {
-    color: #333;
-    margin-top: 1.5em;
-    font-size: 1.2em;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: .75em;
-    margin-bottom: 0em;
-}
-
-.form-group {
-    margin-bottom: 1em;
-}
-
-label {
-    display: block;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.5em;
-}
-
-.required::after {
-    content: " *";
-    color: #e74c3c;
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 0.8em;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    font-size: 1em;
-    transition: border-color 0.3s ease;
-    box-sizing: border-box;
-}
-
-input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: #004d80;
-    box-shadow: 0 0 0 3px rgba(0, 77, 128, 0.1);
-}
-
-input:required:invalid {
-    border-color: #e74c3c;
-}
-
-input:required:valid {
-    border-color: #27ae60;
-}
-
-.checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.8em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-.checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    padding: 0.5em;
-    background: white;
-    border-radius: 6px;
-    border: 1px solid #e0e0e0;
-    transition: border-color 0.3s ease;
-}
-
-.checkbox-item input[type="checkbox"] {
-    width: auto;
-    margin: 0;
-}
-
-.checkbox-item label {
-    margin: 0;
-    font-weight: normal;
-    cursor: pointer;
-}
-
-.quantity-input {
-    width: 80px !important;
-    margin-left: 0.5em;
-}
-
-.hidden { display: none; }
-
-.toggle-section {
-    background: #e8f4ff;
-    border: 1px solid #004d80;
-    border-radius: 6px;
-    padding: 1em;
-    margin: 1em 0;
-}
-
-.submit-section {
-    text-align: center;
-    margin-top: 3em;
-    padding: 2em;
-    background: #f8f9fa;
-    border-radius: 8px;
-}
-
-.submit-btn {
-    background: linear-gradient(45deg, #004d80, #0066cc);
-    color: white;
-    padding: 1em 3em;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.2em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 77, 128, 0.3);
-}
-
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 77, 128, 0.4);
-}
-
-.notice {
-    background: #fff3cd;
-    border: 1px solid #ffeaa7;
-    border-radius: 6px;
-    padding: 1.5em;
-    margin: 2em 0;
-    color: #856404;
-}
-
-.contact-info {
-    background: #d1ecf1;
-    border: 1px solid #bee5eb;
-    border-radius: 6px;
-    padding: 1.5em;
-    margin: 2em 0;
-    color: #0c5460;
-}
-
-.location-details {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 1.5em;
-    margin: 1em 0;
-}
-
-.error-message {
-    color: #e74c3c;
-    font-size: 0.9em;
-    margin-top: 0.5em;
-    display: none;
-}
-
-.services-error {
-    background: #ffeaea;
-    border: 1px solid #e74c3c;
-    border-radius: 6px;
-    padding: 1em;
-    margin-top: 1em;
-}
-
-.heavy-items-error {
-    background: #ffeaea;
-    border: 1px solid #e74c3c;
-    border-radius: 6px;
-    padding: 1em;
-    margin-top: 1em;
-}
-
-@media (max-width: 768px) {
-    .form-row {
-        grid-template-columns: 1fr;
+  /* ============ road + truck ============ */
+  .roadwrap{position:relative;padding-top:74px}
+  .road{
+    position:absolute;top:90px;bottom:0;
+    left:var(--road-left);width:var(--road-w);
+    background:var(--asphalt);
+    border-left:5px solid var(--asphalt-edge);
+    border-right:5px solid var(--asphalt-edge);
+    border-radius:34px 34px 0 0;
+  }
+  .road::before{
+    content:"";position:absolute;top:16px;bottom:8px;left:50%;width:5px;
+    transform:translateX(-50%);
+    background:repeating-linear-gradient(180deg,
+      var(--dash) 0 34px, transparent 34px 66px);
+    border-radius:3px;
+  }
+  .truck{
+    position:fixed;z-index:60;top:33vh;
+    left:calc(var(--road-left) + var(--road-w)/2 + 2.5px);
+    transform:translateX(-50%);
+    width:clamp(46px,8vw,74px);
+    transition:opacity .4s ease;
+    filter:drop-shadow(4px 6px 0 rgba(0,0,0,.28));
+    pointer-events:none;
+  }
+  body.arrived .truck{opacity:0}
+  .trailer{
+    position:relative;background:#fff;border:3px solid var(--ink);
+    border-radius:9px;height:clamp(84px,15vw,132px);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+  }
+  .trailer b{
+    font-family:var(--slab);font-weight:400;color:var(--kc-red);
+    font-size:clamp(9px,1.5vw,13px);letter-spacing:.06em;
+    writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
+  }
+  .cab{
+    margin-top:4px;background:var(--kc-red);border:3px solid var(--ink);
+    border-radius:7px 7px 11px 11px;height:clamp(26px,4.6vw,40px);position:relative;
+  }
+  .cab::after{ /* windshield */
+    content:"";position:absolute;left:6px;right:6px;top:5px;height:7px;
+    background:#BFE6F5;border-radius:3px;border:2px solid var(--ink);
+  }
+  /* motion dashes while scrolling */
+  .truck::before,.truck::after{
+    content:"";position:absolute;left:18%;top:-26px;width:5px;height:16px;
+    background:rgba(255,255,255,.85);border-radius:3px;opacity:0;
+  }
+  .truck::after{left:auto;right:18%;top:-38px}
+  @media (prefers-reduced-motion:no-preference){
+    body.rolling .truck::before,body.rolling .truck::after{
+      opacity:1;animation:zoom .35s linear infinite;
     }
-    
-    .container {
-        padding: 1.5em;
-    }
-    
-    .checkbox-group {
-        grid-template-columns: 1fr;
-    }
-}
+    @keyframes zoom{from{transform:translateY(0);opacity:.9}to{transform:translateY(26px);opacity:0}}
+  }
+
+  /* ============ scenes / stops ============ */
+  .scene{
+    position:relative;
+    padding:clamp(48px,8vw,110px) var(--gutter) clamp(48px,8vw,110px)
+      calc(var(--road-left) + var(--road-w) + var(--gutter) + 10px);
+  }
+  .stop{max-width:660px;position:relative;margin-bottom:clamp(36px,6vw,64px)}
+  .stop:last-child{margin-bottom:0}
+  .stop::before{ /* driveway stub to the road */
+    content:"";position:absolute;top:30px;height:16px;
+    right:100%;width:calc(var(--gutter) + 14px);
+    background:var(--asphalt);border-top:4px solid var(--asphalt-edge);
+    border-bottom:4px solid var(--asphalt-edge);
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .5s ease,transform .5s ease}
+    .reveal.in{opacity:1;transform:none}
+  }
+
+  /* highway-sign headers */
+  .hwy-sign{
+    display:inline-block;background:var(--sign-green);color:#fff;
+    border:4px solid #fff;outline:3px solid var(--ink);border-radius:12px;
+    padding:12px 20px 10px;margin-bottom:18px;
+    box-shadow:5px 6px 0 rgba(23,19,14,.25);
+  }
+  .hwy-sign .exit{
+    display:block;font-weight:800;font-size:12px;letter-spacing:.22em;
+    text-transform:uppercase;opacity:.9;margin-bottom:2px;
+  }
+  .hwy-sign h2{
+    font-family:var(--hwy);font-weight:800;text-transform:uppercase;
+    font-size:clamp(21px,4.5vw,32px);line-height:1.05;letter-spacing:.02em;
+  }
+  .stop h3{
+    font-family:var(--slab);font-weight:400;font-size:clamp(21px,4vw,28px);
+    line-height:1.1;margin-bottom:8px;
+  }
+  .stop p{max-width:52ch;font-size:clamp(15px,2.2vw,17px)}
+  .stop .tag{
+    display:inline-block;font-weight:800;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--kc-red);margin-bottom:6px;
+  }
+
+  /* ============ scene 1: departure ============ */
+  .sun{
+    position:absolute;top:110px;right:8%;width:92px;height:92px;border-radius:50%;
+    background:#FFE9B8;box-shadow:0 0 0 18px rgba(255,233,184,.45),0 0 0 40px rgba(255,233,184,.2);
+  }
+  .cloud{position:absolute;background:#fff;border-radius:999px;opacity:.9}
+  .cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+  .c1{top:150px;left:44%;width:110px;height:30px}
+  .c1::before{width:44px;height:44px;top:-20px;left:16px}
+  .c1::after{width:34px;height:34px;top:-14px;left:56px}
+  .c2{top:260px;right:20%;width:80px;height:24px}
+  .c2::before{width:34px;height:34px;top:-16px;left:12px}
+  .c2::after{width:26px;height:26px;top:-10px;left:42px}
+
+  .hero-copy{max-width:640px;position:relative}
+  .kicker{
+    font-weight:800;font-size:clamp(11px,2.4vw,13px);letter-spacing:.2em;
+    text-transform:uppercase;background:var(--ink);color:var(--paper);
+    display:inline-block;padding:7px 12px;border-radius:5px;margin-bottom:16px;
+  }
+  h1{
+    font-family:var(--slab);font-weight:400;line-height:.98;
+    font-size:clamp(46px,11vw,110px);letter-spacing:.005em;
+  }
+  h1 span{color:var(--kc-red)}
+  .hero-sub{
+    max-width:46ch;font-size:clamp(16px,2.5vw,19px);font-weight:600;margin:18px 0 22px;
+  }
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+  .btn{
+    font-weight:800;font-size:15px;text-decoration:none;border-radius:8px;
+    padding:14px 20px;border:3px solid var(--ink);display:inline-block;
+    transition:transform .12s ease,box-shadow .12s ease;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+  .btn-red{background:var(--kc-red);color:#fff;border-color:var(--ink)}
+  .btn-paper{background:var(--paper);color:var(--ink)}
+  .scroll-cue{font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .scroll-cue b{color:var(--kc-red)}
+  @media (prefers-reduced-motion:reduce){
+    .btn:hover{transform:none;box-shadow:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* old & new houses */
+  .house{position:relative;width:190px;margin:34px 0 0}
+  .h-roof{
+    width:0;height:0;margin-left:-14px;
+    border-left:109px solid transparent;border-right:109px solid transparent;
+    border-bottom:64px solid #7A4C33;
+  }
+  .h-body{
+    background:#B9CFDD;border:3px solid var(--ink);border-top:none;height:110px;position:relative;
+  }
+  .house.new .h-body{background:#F5EBD7}
+  .h-door{
+    position:absolute;bottom:0;left:20px;width:38px;height:64px;
+    background:#7A4C33;border:3px solid var(--ink);border-bottom:none;border-radius:5px 5px 0 0;
+  }
+  .house.new .h-door{background:var(--kc-red)}
+  .h-win{
+    position:absolute;top:20px;width:38px;height:34px;background:#FFF3C7;
+    border:3px solid var(--ink);border-radius:3px;
+  }
+  .h-win.w1{right:22px}.h-win.w2{right:76px}
+  .yard-sign{
+    position:absolute;right:-64px;bottom:0;background:#fff;border:3px solid var(--ink);
+    border-radius:5px;padding:5px 9px;font-weight:800;font-size:12px;letter-spacing:.1em;
+  }
+  .yard-sign::after{
+    content:"";position:absolute;left:50%;top:100%;width:5px;height:16px;
+    background:var(--ink);transform:translateX(-50%);
+  }
+  .yard-sign.sold{color:var(--kc-red)}
+  .yard-sign.home{color:var(--sign-green)}
+
+  /* ============ props ============ */
+  .prop{margin:16px 0 10px;position:relative}
+  /* couch */
+  .couch{width:170px;height:64px;position:relative}
+  .couch .base{position:absolute;bottom:8px;left:0;right:0;height:34px;background:#C0361C;border:3px solid var(--ink);border-radius:8px}
+  .couch .back{position:absolute;bottom:34px;left:12px;right:12px;height:26px;background:#D34A2F;border:3px solid var(--ink);border-radius:8px 8px 0 0}
+  .couch .arm{position:absolute;bottom:14px;width:24px;height:40px;background:#D34A2F;border:3px solid var(--ink);border-radius:8px}
+  .couch .arm.l{left:0}.couch .arm.r{right:0}
+  .couch .leg{position:absolute;bottom:0;width:8px;height:10px;background:var(--ink)}
+  .couch .leg.l{left:16px}.couch .leg.r{right:16px}
+  /* boxes */
+  .boxes{width:170px;height:88px;position:relative}
+  .bx{position:absolute;background:#C39A66;border:3px solid var(--ink);border-radius:4px}
+  .bx::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:12px;transform:translateX(-50%);background:rgba(224,169,66,.85)}
+  .bx1{bottom:0;left:0;width:74px;height:52px}
+  .bx2{bottom:0;left:82px;width:64px;height:44px}
+  .bx3{bottom:50px;left:26px;width:60px;height:36px}
+  .bx .frg{
+    position:absolute;top:4px;left:5px;font-weight:800;font-size:8px;
+    letter-spacing:.08em;color:var(--kc-red);z-index:1;
+  }
+  /* piano */
+  .piano{width:180px;height:80px;position:relative}
+  .piano .pbody{position:absolute;top:0;left:0;right:0;height:52px;background:#17130E;border:3px solid var(--ink);border-radius:8px 22px 6px 6px}
+  .piano .keys{position:absolute;top:52px;left:8px;right:8px;height:16px;border:3px solid var(--ink);background:repeating-linear-gradient(90deg,#fff 0 10px,var(--ink) 10px 12px)}
+  .piano .pleg{position:absolute;top:68px;width:8px;height:12px;background:var(--ink)}
+  .piano .pleg.l{left:14px}.piano .pleg.r{right:14px}
+  /* junk pile */
+  .junk{width:180px;height:74px;position:relative}
+  .junk .j1{position:absolute;bottom:0;left:0;width:70px;height:44px;background:#8B8F96;border:3px solid var(--ink);border-radius:6px;transform:rotate(-4deg)}
+  .junk .j2{position:absolute;bottom:2px;left:60px;width:56px;height:56px;background:#6E7278;border:3px solid var(--ink);border-radius:6px;transform:rotate(5deg)}
+  .junk .tire{position:absolute;bottom:0;right:6px;width:44px;height:44px;border-radius:50%;background:#2C2E33;border:3px solid var(--ink);box-shadow:inset 0 0 0 9px #55585E}
+  /* rearrange: sofa + arrow */
+  .rearr{width:190px;height:70px;position:relative}
+  .rearr .mini{position:absolute;bottom:0;left:0;width:84px;height:40px;background:#3E7CB1;border:3px solid var(--ink);border-radius:8px}
+  .rearr .mini::before{content:"";position:absolute;left:8px;right:8px;top:-16px;height:18px;background:#4E8CC1;border:3px solid var(--ink);border-radius:8px 8px 0 0}
+  .rearr .arrow{
+    position:absolute;right:26px;bottom:16px;width:56px;height:34px;
+    border:5px solid var(--kc-red);border-left:none;border-bottom:none;border-radius:0 18px 0 0;
+  }
+  .rearr .arrow::after{
+    content:"";position:absolute;right:-13px;bottom:-8px;
+    border-left:9px solid transparent;border-right:9px solid transparent;
+    border-top:14px solid var(--kc-red);
+  }
+
+  /* ============ state line / area ============ */
+  .bigsign{
+    background:var(--sign-green);color:#fff;border:5px solid #fff;
+    outline:4px solid var(--ink);border-radius:16px;
+    padding:clamp(18px,4vw,34px);max-width:680px;
+    box-shadow:8px 10px 0 rgba(23,19,14,.28);
+  }
+  .bigsign .bs-top{
+    font-weight:800;letter-spacing:.22em;font-size:12px;text-transform:uppercase;
+    border-bottom:3px solid rgba(255,255,255,.5);padding-bottom:10px;margin-bottom:12px;
+  }
+  .bigsign h2{
+    font-family:var(--hwy);font-weight:800;text-transform:uppercase;
+    font-size:clamp(24px,5vw,40px);line-height:1.05;margin-bottom:14px;
+  }
+  .exits{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;margin-bottom:14px}
+  .exits span{font-weight:700;font-size:clamp(13px,2.4vw,16px)}
+  .exits span::before{content:"➜ ";color:#BDE6C8}
+  .bigsign .bs-note{font-size:14px;font-weight:600;opacity:.92}
+  @media (max-width:440px){.exits{grid-template-columns:1fr}}
+
+  /* ============ walkthrough (photos) ============ */
+  .photo-phone{
+    width:150px;background:#fff;border:3px solid var(--ink);border-radius:20px;
+    padding:12px 10px;margin:18px 0 12px;
+  }
+  .photo-phone .cam{width:34px;height:7px;background:var(--ink);border-radius:5px;margin:0 auto 10px}
+  .thumbs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .thumb{
+    height:54px;border:3px solid var(--ink);border-radius:6px;position:relative;overflow:hidden;
+    background:#EAF3FB;
+  }
+  .thumb.stairs::before{
+    content:"";position:absolute;left:8px;bottom:6px;width:34px;height:34px;
+    background:
+      linear-gradient(var(--ink) 0 0) 0 100%/34px 4px,
+      linear-gradient(var(--ink) 0 0) 10px 66%/24px 4px,
+      linear-gradient(var(--ink) 0 0) 20px 33%/14px 4px;
+    background-repeat:no-repeat;
+  }
+  .thumb.door::before{
+    content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    width:26px;height:42px;background:#7A4C33;border:3px solid var(--ink);
+    border-bottom:none;border-radius:5px 5px 0 0;
+  }
+  .thumb.hall{background:repeating-linear-gradient(90deg,#EAF3FB 0 12px,#D7E7F4 12px 24px)}
+  .thumb.itm::before{
+    content:"📦";position:absolute;inset:0;display:flex;align-items:center;
+    justify-content:center;font-size:24px;
+  }
+
+  /* ============ arrival ============ */
+  #arrival .stop p{max-width:44ch}
+  .parked{
+    display:inline-block;margin-top:22px;transform:rotate(90deg);transform-origin:left top;
+    margin-left:96px;
+  }
+  .parked .truckstat{width:56px;filter:drop-shadow(3px 4px 0 rgba(0,0,0,.22))}
+  .parked .trailer{height:96px}
+  .parked .trailer b{font-size:9px}
+  .parked .cab{height:28px}
+
+  /* ============ finale: chat ============ */
+  .finale{
+    padding:clamp(60px,9vw,110px) clamp(16px,4vw,52px) 30px;
+    display:flex;flex-direction:column;align-items:center;gap:18px;
+    color:#E8EAEE;text-align:center;
+  }
+  .finale .kicker{background:var(--kc-red)}
+  .finale h2{
+    font-family:var(--slab);font-weight:400;color:#fff;
+    font-size:clamp(30px,7vw,54px);line-height:1.02;max-width:16ch;
+  }
+  .finale .fin-sub{max-width:46ch;font-weight:600;color:#AEB4BF;font-size:15px}
+
+  /* phone chat (the box) */
+  .phone{
+    width:min(400px,100%);height:min(680px,78vh);
+    background:#000;border-radius:40px;padding:9px;display:flex;
+    box-shadow:0 26px 70px rgba(0,0,0,.6),0 0 0 1px #2a2d33;
+    text-align:left;color:#111;margin-top:8px;
+  }
+  .screen{background:#F4F4F6;border-radius:32px;overflow:hidden;display:flex;flex-direction:column;flex:1}
+  .contactbar{
+    background:#FBFBFD;border-bottom:1px solid #E3E3E6;
+    display:flex;align-items:center;gap:11px;padding:12px 14px;
+  }
+  .avatar{
+    width:40px;height:40px;border-radius:50%;flex:0 0 auto;
+    background:linear-gradient(135deg,#C0361C,#8E2411);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:14px;
+  }
+  .contact-info{flex:1;min-width:0}
+  .contact-name{font-weight:700;font-size:15.5px;line-height:1.1;font-family:var(--hwy)}
+  .contact-sub{font-size:12px;color:#5f6570}
+  .contact-sub .dot{color:#34C759}
+  .callbtn{
+    flex:0 0 auto;text-decoration:none;width:36px;height:36px;border-radius:50%;
+    background:#34C759;color:#fff;font-size:16px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .thread{
+    flex:1;overflow-y:auto;padding:14px 12px 10px;
+    display:flex;flex-direction:column;gap:4px;font-family:var(--hwy);
+  }
+  .tstamp{align-self:center;font-size:11px;color:#8a8f98;font-weight:700;margin:8px 0 6px}
+  .row{display:flex;width:100%}
+  .row.them{justify-content:flex-start}
+  .row.me{justify-content:flex-end}
+  .bubble{
+    max-width:80%;padding:9px 13px;border-radius:18px;
+    font-size:15px;line-height:1.38;word-wrap:break-word;white-space:pre-line;
+  }
+  .them .bubble{background:#E9E9EB;color:#111;border-bottom-left-radius:5px}
+  .me .bubble{background:#34C759;color:#fff;border-bottom-right-radius:5px}
+  .bubble.summary{
+    background:#fff;border:1.5px dashed #b9bec7;color:#111;
+    font-family:var(--mono);font-size:12.5px;line-height:1.55;
+  }
+  .delivered{align-self:flex-end;font-size:11px;color:#8a8f98;font-weight:700;margin:2px 4px 4px 0}
+  @media (prefers-reduced-motion:no-preference){
+    .row{animation:pop .18s ease-out}
+    @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+    .typing i{animation:blink 1.2s infinite}
+    .typing i:nth-child(2){animation-delay:.18s}
+    .typing i:nth-child(3){animation-delay:.36s}
+    @keyframes blink{0%,60%,100%{opacity:.35}30%{opacity:1}}
+  }
+  .typing .bubble{display:flex;gap:5px;align-items:center;padding:13px 15px}
+  .typing i{width:7px;height:7px;border-radius:50%;background:#9aa0aa;display:block}
+  .composer{
+    background:#FBFBFD;border-top:1px solid #E3E3E6;
+    padding:10px 12px 12px;font-family:var(--hwy);
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    border:1.5px solid #0A84FF;color:#0A84FF;background:#fff;
+    border-radius:999px;padding:9px 14px;font-size:13.5px;font-weight:700;
+    cursor:pointer;font-family:var(--hwy);
+  }
+  .chip:hover{background:#EAF3FF}
+  .chip.primary{background:#0A84FF;color:#fff}
+  .chip.green{border-color:#34C759;background:#34C759;color:#fff}
+  .chip.quiet{border-color:#c4c9d2;color:#5f6570}
+  .inputrow{display:none;gap:8px}
+  .inputrow input{
+    flex:1;font-size:16px;padding:10px 15px;border-radius:999px;
+    border:1.5px solid #c9cdd5;background:#fff;font-family:var(--hwy);
+  }
+  .sendbtn{
+    width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
+    background:#34C759;color:#fff;font-size:17px;flex:0 0 auto;
+  }
+
+  /* ============ receipt footer ============ */
+  .receipt-zone{display:flex;justify-content:center;padding:34px 16px 130px;background:#14161B}
+  .receipt{
+    width:min(420px,100%);background:#FDFBF4;color:#1c1a14;
+    font-family:var(--mono);font-size:12.5px;line-height:1.7;
+    padding:26px 24px 34px;
+    clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),
+      95% 100%,90% calc(100% - 10px),85% 100%,80% calc(100% - 10px),
+      75% 100%,70% calc(100% - 10px),65% 100%,60% calc(100% - 10px),
+      55% 100%,50% calc(100% - 10px),45% 100%,40% calc(100% - 10px),
+      35% 100%,30% calc(100% - 10px),25% 100%,20% calc(100% - 10px),
+      15% 100%,10% calc(100% - 10px),5% 100%,0 calc(100% - 10px));
+    box-shadow:0 18px 40px rgba(0,0,0,.5);
+  }
+  .receipt h2{font-family:var(--mono);font-size:16px;letter-spacing:.14em;text-align:center;margin-bottom:2px}
+  .receipt .sub{text-align:center;letter-spacing:.06em;margin-bottom:14px}
+  .receipt hr{border:none;border-top:1.5px dashed #b7ae97;margin:12px 0}
+  .receipt .line{display:flex;justify-content:space-between;gap:12px}
+  .receipt a{font-weight:600}
+  .receipt .big{font-size:15px;font-weight:700;text-align:center;letter-spacing:.04em}
+  .receipt .center{text-align:center}
+
+  /* ============ mobile call bar ============ */
+  .callbar{
+    position:fixed;left:0;right:0;bottom:0;z-index:80;display:none;gap:10px;
+    background:rgba(255,253,246,.96);border-top:3px solid var(--ink);
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  }
+  .callbar a{
+    flex:1;text-align:center;font-weight:800;font-size:15px;text-decoration:none;
+    padding:13px 8px;border-radius:8px;border:3px solid var(--ink);
+  }
+  .callbar .cb-call{background:var(--kc-red);color:#fff}
+  .callbar .cb-text{background:#34C759;color:#fff}
+  @media (max-width:768px){
+    .callbar{display:flex}
+    .top-call{display:none}
+  }
 </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <img src="https://github.com/moveoverkc/moveoverkc-form/blob/v2Updates/logo%20variant.png?raw=true" 
-             alt="Move Over KC Logo" 
-             style="max-width: 200px; height: auto; margin-bottom: 0em;">
-        <h1>Move Over KC</h1>
-        <p class="subtitle">Professional Moving Services</p>
-        <p class="subtitle">Client Intake Form</p>
-    </header>
+<nav class="topbar">
+  <a class="wordmark" href="#top">MOVE OVER <span>KC</span></a>
+  <div class="topnav">
+    <a href="#services">The load-out</a>
+    <a href="#area">Service area</a>
+    <a href="#photos">Photo scoping</a>
+    <a href="#quote">Text the crew</a>
+  </div>
+  <a class="top-call" href="tel:16603514699">CALL/TEXT 660-351-4699</a>
+</nav>
 
-    <form action="https://formsubmit.co/moveoverkc@gmail.com" method="POST" id="movingForm">
-        <input type="hidden" name="_next" value="https://moveoverkc.github.io/moveoverkc-form/thank-you.html">
+<!-- the truck that drives the whole page -->
+<div class="truck" aria-hidden="true">
+  <div class="trailer"><b>MOVE OVER KC</b></div>
+  <div class="cab"></div>
+</div>
 
-        <!-- Customer Information -->
-        <div class="form-section">
-            <h2>📋 Customer Information</h2>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="customerName" class="required">Full Name</label>
-                    <input type="text" id="customerName" name="Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="customerPhone" class="required">Phone Number</label>
-                    <input type="tel" id="customerPhone" name="Phone" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="customerEmail" class="required">Email Address</label>
-                <input type="email" id="customerEmail" name="Email" required>
-            </div>
+<div class="roadwrap" id="top">
+  <div class="road" aria-hidden="true"></div>
+
+  <!-- SCENE 1: DEPARTURE -->
+  <section class="scene">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="cloud c1" aria-hidden="true"></div>
+    <div class="cloud c2" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <p class="kicker">Kansas City crew · Your truck or ours</p>
+      <h1>Moving day.<br><span>Follow the truck.</span></h1>
+      <p class="hero-sub">This whole website is one move — from your old front door to your new one. Everything we do is a stop on the route. Scroll to ride along.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-red" href="tel:16603514699">📞 Call or text 660-351-4699</a>
+        <a class="btn btn-paper" href="#quote">Skip to booking ↓</a>
+      </div>
+      <p class="scroll-cue"><b>▼</b> The crew's already loading</p>
+      <div class="house" aria-hidden="true">
+        <div class="h-roof"></div>
+        <div class="h-body">
+          <div class="h-door"></div><div class="h-win w1"></div><div class="h-win w2"></div>
         </div>
-        
-        <!-- Services Needed -->
-        <div class="form-section">
-            <h2>🚚 Services Needed <span style="color: #e74c3c;">*</span></h2>
-            <p style="color: #666; margin-bottom: 1em;">Please select at least one service:</p>
-            <div class="checkbox-group" id="servicesGroup">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="needLoading" name="services[]" value="loading_unloading" onchange="toggleSection('loadingSection', this); validateServices()">
-                    <label for="needLoading">Loading/Unloading Help</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="needPacking" name="services[]" value="packing" onchange="toggleSection('packingSection', this); validateServices()">
-                    <label for="needPacking">Packing Help</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="needUnpacking" name="services[]" value="unpacking" onchange="toggleSection('unpackingSection', this); validateServices()">
-                    <label for="needUnpacking">Unpacking Help</label>
-               </div>
-                <!-- <div class="checkbox-item">
-                    <input type="checkbox" id="needSupplies" name="services[]" value="supplies" onchange="validateServices()">
-                    <label for="needSupplies">Moving Supplies</label>
-                </div>  -->
-                <div class="checkbox-item">
-                    <input type="checkbox" id="needRearranging" name="services[]" value="furniture_rearranging" onchange="toggleSection('rearrangingSection', this); validateServices()">
-                    <label for="needRearranging">Furniture Rearranging</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="needJunkRemoval" name="services[]" value="junkRemoval" onchange="toggleSection('junkRemovalSection', this); validateServices()">
-                    <label for="needJunkRemoval">Junk Removal</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="needOtherService" name="services[]" value="otherService" onchange="toggleSection('otherServiceSelection', this); validateServices()">
-                    <label for="needOtherService">Other Service(s) Not Listed</label>
-                </div>
-            </div>
-            <div id="servicesError" class="error-message services-error">
-                <strong>Please select at least one service to continue.</strong>
-            </div>
+        <div class="yard-sign sold">SOLD ✔</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 2: THE LOAD-OUT (services) -->
+  <section class="scene" id="services">
+    <div class="hwy-sign reveal"><span class="exit">Exit 0</span><h2>The load-out</h2></div>
+
+    <div class="stop reveal">
+      <div class="prop couch" aria-hidden="true">
+        <div class="back"></div><div class="arm l"></div><div class="arm r"></div>
+        <div class="base"></div><div class="leg l"></div><div class="leg r"></div>
+      </div>
+      <p class="tag">First on the truck</p>
+      <h3>Loading &amp; unloading</h3>
+      <p>We load, we haul, we unload — or any piece of that. Rent your own truck or trailer and we'll pack it tight, or have us bring the truck and skip the rental counter.</p>
+    </div>
+
+    <div class="stop reveal">
+      <div class="prop boxes" aria-hidden="true">
+        <div class="bx bx1"><span class="frg">FRAGILE</span></div>
+        <div class="bx bx2"></div>
+        <div class="bx bx3"></div>
+      </div>
+      <p class="tag">Boxed by us</p>
+      <h3>Packing &amp; unpacking</h3>
+      <p>We show up with boxes, tape, paper and bubble wrap, and pack room by room — fragile and high-value pieces get flagged and wrapped extra. On the other end, we unpack and break down every box.</p>
+    </div>
+
+    <div class="stop reveal">
+      <div class="prop piano" aria-hidden="true">
+        <div class="pbody"></div><div class="keys"></div>
+        <div class="pleg l"></div><div class="pleg r"></div>
+      </div>
+      <p class="tag">The fun stuff</p>
+      <h3>Heavy &amp; specialty items</h3>
+      <p>Pianos, safes, appliances, treadmills, lawn equipment. We bring ratchet straps, moving blankets, mattress bags and enough hands — stairs and tight hallways included.</p>
+    </div>
+
+    <div class="stop reveal">
+      <div class="prop junk" aria-hidden="true">
+        <div class="j1"></div><div class="j2"></div><div class="tire"></div>
+      </div>
+      <p class="tag">Left at the curb</p>
+      <h3>Junk removal</h3>
+      <p>Old furniture, dead appliances, the garage pile. Tell us what goes and where it should end up — dump or donation — and consider it gone.</p>
+    </div>
+
+    <div class="stop reveal">
+      <div class="prop rearr" aria-hidden="true">
+        <div class="mini"></div><div class="arrow"></div>
+      </div>
+      <p class="tag">No truck required</p>
+      <h3>Furniture rearranging</h3>
+      <p>Staying put, new layout. We shift couches, beds and the big pieces between rooms or floors — no scuffed walls, no thrown-out backs.</p>
+    </div>
+  </section>
+
+  <!-- SCENE 3: STATE LINE (area) -->
+  <section class="scene" id="area">
+    <div class="stop reveal">
+      <div class="bigsign">
+        <p class="bs-top">★ Now entering · both sides of the state line ★</p>
+        <h2>Serving the Kansas City metro</h2>
+        <div class="exits">
+          <span>Kansas City</span><span>Overland Park</span>
+          <span>Independence</span><span>Olathe</span>
+          <span>Lee's Summit</span><span>Shawnee</span>
+          <span>Blue Springs</span><span>Lenexa</span>
+          <span>Raytown</span><span>Liberty</span>
         </div>
+        <p class="bs-note">Missouri and Kansas. Outside the metro? Ask — we travel.</p>
+      </div>
+    </div>
+  </section>
 
-
-        <!-- Loading/Unloading Section -->
-        <div id="loadingSection" class="toggle-section hidden">
-            <h3>📦 Loading & Unloading Details</h3>
-            
-            <h4>Service Type <span style="color: #e74c3c;">*</span></h4>
-            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select what type of loading/unloading service you need:</p>
-            <div class="checkbox-group" id="loadingTypeGroup">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="onlyLoading" name="loading_type[]" value="only_loading" onchange="validateLoadingType(); handleLoadingType()">
-                    <label for="onlyLoading">Only Loading</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="onlyUnloading" name="loading_type[]" value="only_unloading" onchange="validateLoadingType(); handleLoadingType()">
-                    <label for="onlyUnloading">Only Unloading</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="bothLoadingUnloading" name="loading_type[]" value="both_loading_unloading" onchange="validateLoadingType(); handleLoadingType()">
-                    <label for="bothLoadingUnloading">Both Loading and Unloading</label>
-                </div>
-            </div>
-            <div id="loadingTypeError" class="error-message heavy-items-error">
-                <strong>Please select a loading/unloading service type.</strong>
-            </div>
-            
-            <!-- Moving Truck Section - Hidden by default -->
-            <div id="truckSection" class="hidden">
-                <h4>Moving Truck <span style="color: #e74c3c;">*</span></h4>
-                <div class="checkbox-group" id="truckGroup">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="Truck" name="truck[]" value="truck" onchange="validateTruck()">
-                        <label for="Truck">I would like Move Over KC to Provide a truck</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="noTruck" name="truck[]" value="noTruck" onchange="validateTruck()">
-                        <label for="noTruck">I will provide my own truck/trailer</label>
-                    </div>
-                </div>
-                <div id="truckError" class="error-message heavy-items-error">
-                    <strong>Please specify a truck option.</strong>
-                </div>
-            </div>
-            
-            <h4>Moving Details <span style="color: #e74c3c;">*</span></h4>
-            <div class="form-row">
-                <div class="location-details" id="startLocationDetails">
-                    <h4>Starting Location</h4>
-                    <div class="form-group">
-                        <label for="startPropertyType" class="required">Property Type</label>
-                        <select id="startPropertyType" name="Start Property Type" data-conditional-required="loadingSection">
-                            <option value="">Select property type</option>
-                            <option value="single-floor-home">Single-Floor Home</option>
-                            <option value="multi-level-home">Multi-Level Home</option>
-                            <option value="apartment">Apartment</option>
-                            <option value="townhome">Townhome</option>
-                            <option value="duplex">Duplex</option>
-                            <option value="storage-unit">Storage Unit</option>
-                            <option value="office">Office</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="startStairs" class="required">Number of Stairs</label>
-                            <input type="number" id="startStairs" name="Start Stairs" min="0" data-conditional-required="loadingSection">
-                        </div>
-                        <div class="form-group">
-                            <label for="startFloor" class="required">Floor Level</label>
-                            <select id="startFloor" name="Start Floor" data-conditional-required="loadingSection">
-                                <option value="ground">Ground Floor</option>
-                                <option value="1">1st Floor</option>
-                                <option value="2">2nd Floor</option>
-                                <option value="3">3rd Floor</option>
-                                <option value="4+">4th Floor or Higher</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="startElevator" class="required">Elevator Access</label>
-                        <select id="startElevator" name="Start Elevator" data-conditional-required="loadingSection">
-                            <option value="none">No Elevator</option>
-                            <option value="regular">Regular Elevator</option>
-                            <option value="service">Service Elevator</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="startParking" class="required">Parking/Access Notes</label>
-                        <input type="text" id="startParking" name="Start Parking" placeholder="e.g., street parking, long driveway, loading dock" data-conditional-required="loadingSection">
-                    </div>
-                </div>
-
-                <div class="location-details" id="endLocationDetails">
-                    <h4>Ending Location</h4>
-                    <div class="form-group">
-                        <label for="endPropertyType" class="required">Property Type</label>
-                        <select id="endPropertyType" name="End Property Type" data-conditional-required="loadingSection">
-                            <option value="">Select property type</option>
-                            <option value="single-floor-home">Single-Floor Home</option>
-                            <option value="multi-level-home">Multi-Level Home</option>
-                            <option value="apartment">Apartment</option>
-                            <option value="townhome">Townhome</option>
-                            <option value="duplex">Duplex</option>
-                            <option value="storage-unit">Storage Unit</option>
-                            <option value="office">Office</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="endStairs" class="required">Number of Stairs</label>
-                            <input type="number" id="endStairs" name="End Stairs" min="0" data-conditional-required="loadingSection">
-                        </div>
-                        <div class="form-group">
-                            <label for="endFloor" class="required">Floor Level</label>
-                            <select id="endFloor" name="End Floor" data-conditional-required="loadingSection">
-                                <option value="ground">Ground Floor</option>
-                                <option value="1">1st Floor</option>
-                                <option value="2">2nd Floor</option>
-                                <option value="3">3rd Floor</option>
-                                <option value="4+">4th Floor or Higher</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="endElevator" class="required">Elevator Access</label>
-                        <select id="endElevator" name="End Elevator" data-conditional-required="loadingSection">
-                            <option value="none">No Elevator</option>
-                            <option value="regular">Regular Elevator</option>
-                            <option value="service">Service Elevator</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="endParking" class="required">Parking/Access Notes</label>
-                        <input type="text" id="endParking" name="End Parking" placeholder="e.g., street parking, long driveway, loading dock" data-conditional-required="loadingSection">
-                    </div>
-                </div>
-            </div>
-
-            <h4>Heavy/Specialty Items <span style="color: #e74c3c;">*</span></h4>
-            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select at least one heavy/specialty item or indicate "No heavy items":</p>
-            <div class="checkbox-group" id="heavyItemsGroup">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="piano" name="heavy_items[]" value="piano" onchange="validateHeavyItems()">
-                    <label for="piano">Piano</label>
-                    <input type="number" class="quantity-input hidden" id="pianoQty" name="piano_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="appliances" name="heavy_items[]" value="appliances" onchange="validateHeavyItems()">
-                    <label for="appliances">Large Appliances</label>
-                    <input type="number" class="quantity-input hidden" id="appliancesQty" name="appliances_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="furniture" name="heavy_items[]" value="furniture" onchange="validateHeavyItems()">
-                    <label for="furniture">Heavy Furniture</label>
-                    <input type="number" class="quantity-input hidden" id="furnitureQty" name="furniture_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="safe" name="heavy_items[]" value="safe" onchange="validateHeavyItems()">
-                    <label for="safe">Safe</label>
-                    <input type="number" class="quantity-input hidden" id="safeQty" name="safe_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="mattress" name="heavy_items[]" value="mattress" onchange="validateHeavyItems()">
-                    <label for="mattress">Mattress</label>
-                    <input type="number" class="quantity-input hidden" id="mattressQty" name="mattress_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="exerciseequipment" name="heavy_items[]" value="exerciseequipment" onchange="validateHeavyItems()">
-                    <label for="exerciseequipment">Exercise Equipment</label>
-                    <input type="number" class="quantity-input hidden" id="exerciseQty" name="exercise_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="lawnequipment" name="heavy_items[]" value="lawnequipment" onchange="validateHeavyItems()">
-                    <label for="lawnequipment">Lawn Equipment</label>
-                    <input type="number" class="quantity-input hidden" id="lawnQty" name="lawn_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="noheavy" name="heavy_items[]" value="no_heavy_items" onchange="validateHeavyItems(); handleNoHeavyItems(this)">
-                    <label for="noheavy">No heavy items</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="otherHeavy" name="heavy_items[]" value="other" onchange="validateHeavyItems()">
-                    <label for="otherHeavy">Other item</label>
-                    <input type="number" class="quantity-input hidden" id="otherHeavyQty" name="other_heavy_qty" min="1" placeholder="Qty">
-                </div>
-            </div>
-            <div id="heavyItemsError" class="error-message heavy-items-error">
-                <strong>Please select at least one heavy/specialty item or indicate "No heavy items".</strong>
-            </div>
-            
-            <div class="form-group">
-                <label for="specialItems">Additional Heavy/Specialty Items</label>
-                <textarea id="specialItems" name="Special Items" rows="3" placeholder="Describe any other heavy, fragile, or specialty items"></textarea>
-            </div>
-
-            <h4>Moving Equipment</h4>
-            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select any equipment needed:</p>
-            <div class="checkbox-group" id="movingEquipmentGroup">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="straps" name="movingEquipment[]" value="straps" onchange="validatemovingEquipmentItems()">
-                    <label for="straps">Ratchet Straps</label>
-                    <input type="number" class="quantity-input hidden" id="strapsQty" name="straps_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="blankets" name="movingEquipment[]" value="blankets" onchange="validatemovingEquipmentItems()">
-                    <label for="blankets">Moving Blankets</label>
-                    <input type="number" class="quantity-input hidden" id="blanketsQty" name="blankets_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="bags" name="movingEquipment[]" value="bags" onchange="validatemovingEquipmentItems()">
-                    <label for="bags">Mattress Bags (Please note matress sizes)</label>
-                    <input type="number" class="quantity-input hidden" id="bagsQty" name="bags_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="otherEquipment" name="movingEquipment[]" value="other" onchange="validatemovingEquipmentItems()">
-                    <label for="otherEquipment">Other (Please note)</label>
-                    <input type="number" class="quantity-input hidden" id="otherEquipmentQty" name="other_equipment_qty" min="1" placeholder="Qty">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="movingEquipmentDetails">Additional Moving Equipment</label>
-                <textarea id="movingEquipmentDetails" name="Moving Equipment Details" rows="3" placeholder="Describe any other moving equipment needed"></textarea>
-            </div>
+  <!-- SCENE 4: THE WALKTHROUGH (photo scoping) -->
+  <section class="scene" id="photos">
+    <div class="hwy-sign reveal"><span class="exit">Mile 12</span><h2>The walkthrough</h2></div>
+    <div class="stop reveal">
+      <div class="photo-phone" aria-hidden="true">
+        <div class="cam"></div>
+        <div class="thumbs">
+          <div class="thumb stairs"></div>
+          <div class="thumb door"></div>
+          <div class="thumb itm"></div>
+          <div class="thumb hall"></div>
         </div>
+      </div>
+      <p class="tag">No surprise pricing</p>
+      <h3>We scope every job by photo</h3>
+      <p>Before move day, you text us photos of the items, doorways, stairs and driveway. We plan the crew and the gear off what we see — so the price is right the first time and nobody's improvising with your piano.</p>
+    </div>
+  </section>
 
-
-
-        <!-- Move Details -->
-        <div class="form-section">
-            <h2>📅 Move Details</h2>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="moveDate" class="required">Moving Date</label>
-                    <input type="date" id="moveDate" name="Move Date" required>
-                </div>
-                <div class="form-group">
-                    <label for="startTime" class="required">Preferred Start Time</label>
-                    <input type="time" id="startTime" name="Start Time">
-                </div>
-            </div>
-            <div class="form-group" id="startAddressGroup">
-                <label for="startAddress" class="required">Starting Address</label>
-                <input type="text" id="startAddress" name="Starting Address" required placeholder="Street address, city, state, zip">
-            </div>
-            <div class="form-group" id="endAddressGroup">
-                <label for="endAddress" class="required">Ending Address</label>
-                <input type="text" id="endAddress" name="Ending Address" required placeholder="Street address, city, state, zip">
-            </div>
-            <div class="form-group">
-                <label for="additionalStops">Additional Stops</label>
-                <textarea id="additionalStops" name="Additional Stops" rows="2" placeholder="List any additional stops along the way"></textarea>
-            </div>
+  <!-- SCENE 5: ARRIVAL -->
+  <section class="scene" id="arrival">
+    <div class="hwy-sign reveal"><span class="exit">Destination</span><h2>Arrival</h2></div>
+    <div class="stop reveal">
+      <div class="house new" aria-hidden="true">
+        <div class="h-roof"></div>
+        <div class="h-body">
+          <div class="h-door"></div><div class="h-win w1"></div><div class="h-win w2"></div>
         </div>
-
-
-
-        <!-- Packing Section -->
-        <div id="packingSection" class="toggle-section hidden">
-            <h3>📦 Packing Details</h3>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="packingDate">Packing Date</label>
-                    <input type="date" id="packingDate" name="Packing Date" data-conditional-required="packingSection">
-                </div>
-                <div class="form-group">
-                    <label for="packingTime">Packing Time</label>
-                    <input type="time" id="packingTime" name="Packing Time">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="packingAreas" class="required">Rooms/Areas to Pack</label>
-                <textarea id="packingAreas" name="Packing Areas" rows="3" placeholder="List rooms or areas that need packing" data-conditional-required="packingSection"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="fragileItems">Fragile/High-Value Items</label>
-                <textarea id="fragileItems" name="Fragile Items" rows="3" placeholder="Describe fragile or valuable items requiring special care"></textarea>
-            </div>
-
-            <h4>Packing Supplies </h4>
-            <p style="color: #666; margin-bottom: 1em; font-size: 0.9em;">Please select packing supplies that are needed:</p>
-            <div class="checkbox-group" id="packingSuppliesGroup">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="smallMovingBox" value="smallMovingBox" onchange="validatePackingSupplies()">
-                    <label for="smallMovingBox">Small Moving Boxes</label>
-                    <input type="number" class="quantity-input hidden" id="smallMovingBoxQty" name="smallMovingBox_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="mediumMovingBox" value="mediumMovingBox" onchange="validatePackingSupplies()">
-                    <label for="mediumMovingBox">Medium Moving Boxes</label>
-                    <input type="number" class="quantity-input hidden" id="mediumMovingBoxQty" name="mediumMovingBox_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="largeMovingBox" value="largeMovingBox" onchange="validatePackingSupplies()">
-                    <label for="largeMovingBox">Large Moving Boxes</label>
-                    <input type="number" class="quantity-input hidden" id="largeMovingBoxQty" name="largeMovingBox_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="extralargeMovingBox" value="extralargeMovingBox" onchange="validatePackingSupplies()">
-                    <label for="extralargeMovingBox">Extra Large Moving Boxes</label>
-                    <input type="number" class="quantity-input hidden" id="extralargeMovingBoxQty" name="extralargeMovingBox_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="tvMovingBox" value="tvMovingBox" onchange="validatePackingSupplies()">
-                    <label for="tvMovingBox">TV Moving Boxes</label>
-                    <input type="number" class="quantity-input hidden" id="tvMovingBoxQty" name="tvMovingBox_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="otherMovingBox" value="otherMovingBox" onchange="validatePackingSupplies()">
-                    <label for="otherMovingBox">Other Moving Box Boxes (please describe in notes)</label>
-                    <input type="number" class="quantity-input hidden" id="otherMovingBoxQty" name="otherMovingBox_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="tapeRoll" value="tapeRoll" onchange="validatePackingSupplies()">
-                    <label for="tapeRoll">Rolls of Tape</label>
-                    <input type="number" class="quantity-input hidden" id="tapeRollQty" name="tapeRoll_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="plasticRoll" value="plasticRoll" onchange="validatePackingSupplies()">
-                    <label for="plasticRoll">Rolls of Plastic Wrap</label>
-                    <input type="number" class="quantity-input hidden" id="plasticRollQty" name="plasticRoll_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="paperRoll" value="paperRoll" onchange="validatePackingSupplies()">
-                    <label for="paperRoll">Rolls of Packing Paper</label>
-                    <input type="number" class="quantity-input hidden" id="paperRollQty" name="paperRoll_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="bubbleWrap" value="bubbleWrap" onchange="validatePackingSupplies()">
-                    <label for="bubbleWrap">Rolls of Bubble Wrap</label>
-                    <input type="number" class="quantity-input hidden" id="bubbleWrapQty" name="bubbleWrap_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="fragileSticker" value="fragileSticker" onchange="validatePackingSupplies()">
-                    <label for="fragileSticker">Fragile Stickers</label>
-                    <input type="number" class="quantity-input hidden" id="fragileStickerQty" name="fragileSticker_qty" min="1" placeholder="Qty">
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="mattressBags" value="mattressBags" onchange="validatePackingSupplies()">
-                    <label for="mattressBags">Mattress Bags (please specify sizes in notes)</label>
-                    <input type="number" class="quantity-input hidden" id="mattressBagsQty" name="mattressBags_qty" min="1" placeholder="Qty">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="packingDetailsAdditionalNotes">Packing Detail Notes</label>
-                <textarea id="packingDetailsAdditionalNotes" name="Packing Detail Notes" rows="3" placeholder="Please describe any additional information about needed packing supplies"></textarea>
-            </div>
+        <div class="yard-sign home">HOME</div>
+      </div>
+      <div class="parked" aria-hidden="true">
+        <div class="truckstat">
+          <div class="trailer"><b>MOVE OVER KC</b></div>
+          <div class="cab"></div>
         </div>
+      </div>
+      <h3 style="margin-top:20px">You're home. We don't leave until it's done right.</h3>
+      <p>Beds where beds go, couch where the couch goes, boxes in the rooms they belong in. That's the job.</p>
+    </div>
+  </section>
+</div><!-- /roadwrap -->
 
-        <!-- Unpacking Section -->
-        <div id="unpackingSection" class="toggle-section hidden">
-            <h3>📦 Unpacking Details</h3>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="unpackingDate" class="required">Unpacking Date</label>
-                    <input type="date" id="unpackingDate" name="Unpacking Date" data-conditional-required="unpackingSection">
-                </div>
-                <div class="form-group">
-                    <label for="unpackingTime">Unpacking Time</label>
-                    <input type="time" id="unpackingTime" name="Unpacking Time">
-                </div>
-            </div>
-            <!-- <div class="form-group">
-                <label for="unpackingAddress" class="required">Unpacking Address</label>
-                <input type="text" id="unpackingAddress" name="Unpacking Address" placeholder="Street address, city, state, zip" data-conditional-required="unpackingSection">
-            </div> -->
-            <div class="form-group">
-                <label for="unpackingDetails">Unpacking Additional Notes</label>
-                <textarea id="unpackingDetails" name="Unpacking Details" rows="3" placeholder="Describe any additional details for unpacking"></textarea>
-            </div>
-        </div>
+<!-- FINALE: the box -->
+<section class="finale" id="quote">
+  <p class="kicker">The whole move starts here</p>
+  <h2>Booking us is one text.</h2>
+  <p class="fin-sub">Tap through — your answers become a real message to the crew's phone. Or just call.</p>
 
-        <!-- Furniture Rearranging Section -->
-        <div id="rearrangingSection" class="toggle-section hidden">
-            <h3>🪑 Furniture Rearranging Details</h3>
-            <div class="form-group">
-                <label for="rearrangingDetails" class="required">Rearranging Details</label>
-                <textarea id="rearrangingDetails" name="Rearranging Details" rows="4" placeholder="Please describe what furniture needs to be rearranged, moved between rooms, or repositioned. Include details about the current location and desired location of items." data-conditional-required="rearrangingSection"></textarea>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="rearrangingDate">Preferred Date for Rearranging</label>
-                    <input type="date" id="rearrangingDate" name="Rearranging Date">
-                </div>
-                <div class="form-group">
-                    <label for="rearrangingTime">Preferred Time</label>
-                    <input type="time" id="rearrangingTime" name="Rearranging Time">
-                </div>
-            </div>
-        </div>
-
-        <!-- Junk Removal Section -->
-        <div id="junkRemovalSection" class="toggle-section hidden">
-            <h3>🚮 Junk Removal Details</h3>
-            <div class="form-group">
-                <label for="junkRemovalDetails" class="required">Please list all items to be hauled and desired dumping location</label>
-                <textarea id="junkRemovalDetails" name="Junk Removal Details" rows="3" placeholder="Items to be hauled" data-conditional-required="junkRemovalSection"></textarea>
-            </div>
-        </div>
-        
-        <!-- Other Services Section -->
-        <div id="otherServiceSelection" class="toggle-section hidden">
-            <h3>🛎️Other Service(s) details</h3>
-            <div class="form-group">
-                <label for="otherServiceDetails" class="required">Please list what service(s) you require. Include as much detail as possible.</label>
-                <textarea id="otherServiceDetails" name="Other Service Needed" rows="3" placeholder="Include all details about the services needed" data-conditional-required="otherServiceSelection"></textarea>
-            </div>
-        </div>
-
-        <!-- Additional Information -->
-        <div class="form-section">
-            <h2>💬 Additional Information</h2>
-            <div class="form-group">
-                <label for="specialRequests">Special Requests or Notes</label>
-                <textarea id="specialRequests" name="Special Requests" rows="4" placeholder="Any additional information, special requests, or concerns"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="referralSource">How did you hear about us?</label>
-                <select id="referralSource" name="Referral Source">
-                    <option value="">Select source</option>
-                    <option value="google">Google Search</option>
-                    <option value="facebook">Facebook</option>
-                    <option value="friend">Friend/Family Referral</option>
-                    <option value="previous-customer">Previous Customer</option>
-                    <option value="online-review">Online Reviews</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Important Notice -->
-        <div class="notice">
-            <h3>📸 Important: Photo Documentation Required</h3>
-            <p>After submitting this form, please take photos of:</p>
-            <ul>
-                <li>All items mentioned in this form</li>
-                <li>All doorways, stairs, and hallways</li>
-                <li>Driveways and access points</li>
-                <li>Any obstacles or challenges</li>
-            </ul>
-            <p><strong>Email photos to: MoveOverKC@gmail.com</strong><br>
-            Subject line: [Your First and Last Name] - Move Photos</p>
-        </div>
-
-        <!-- Contact Information -->
+  <div class="phone" role="region" aria-label="Chat with Move Over KC">
+    <div class="screen">
+      <div class="contactbar">
+        <div class="avatar" aria-hidden="true">MO</div>
         <div class="contact-info">
-            <h3>📞 Need Help?</h3>
-            <p>If you have questions or need assistance with this form:</p>
-            <p><strong>Call/Text:</strong> 660-351-4699<br>
-            <strong>Email:</strong> MoveOverKC@gmail.com</p>
+          <div class="contact-name">Move Over KC</div>
+          <div class="contact-sub"><span class="dot">●</span> Usually replies in minutes</div>
         </div>
+        <a class="callbtn" href="tel:16603514699" aria-label="Call Move Over KC at 660-351-4699">✆</a>
+      </div>
+      <div class="thread" id="thread" aria-live="polite"></div>
+      <div class="composer">
+        <div class="chips" id="chips" role="group" aria-label="Quick replies"></div>
+        <div class="inputrow" id="inputrow">
+          <input id="userinput" type="text" autocomplete="off" aria-label="Type your reply">
+          <button class="sendbtn" id="sendbtn" aria-label="Send">↑</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- Submit Section -->
-        <div class="submit-section">
-            <button type="submit" class="submit-btn">Submit Moving Request</button>
-        </div>
-    </form>
+<!-- static, crawlable business info -->
+<div class="receipt-zone">
+  <footer class="receipt">
+    <h2>MOVE OVER KC</h2>
+    <p class="sub">* PROFESSIONAL MOVING SERVICES *</p>
+    <hr>
+    <p class="line"><span>Loading / unloading</span><span>your truck or ours</span></p>
+    <p class="line"><span>Packing / unpacking</span><span>supplies included</span></p>
+    <p class="line"><span>Furniture rearranging</span><span>no scuffed walls</span></p>
+    <p class="line"><span>Junk removal</span><span>we haul it off</span></p>
+    <hr>
+    <p class="line"><span>Heavy items</span><span>pianos · safes · appliances</span></p>
+    <p class="line"><span>Service area</span><span>KC metro — MO &amp; KS</span></p>
+    <p class="line"><span>Quotes</span><span>free, scoped by photo</span></p>
+    <hr>
+    <p class="big">CALL / TEXT: <a href="tel:16603514699">660-351-4699</a></p>
+    <p class="center"><a href="mailto:MoveOverKC@gmail.com">MoveOverKC@gmail.com</a></p>
+    <hr>
+    <p class="center">© <span id="yr"></span> MOVE OVER KC — THIS END UP ↑</p>
+  </footer>
+</div>
+
+<div class="callbar">
+  <a class="cb-call" href="tel:16603514699">📞 Call</a>
+  <a class="cb-text" href="sms:16603514699">💬 Text</a>
 </div>
 
 <script>
-function validateServices() {
-    const serviceCheckboxes = document.querySelectorAll('input[name="services[]"]');
-    const errorDiv = document.getElementById('servicesError');
-    const servicesGroup = document.getElementById('servicesGroup');
-    
-    let isChecked = false;
-    serviceCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            isChecked = true;
-        }
-    });
-    
-    if (isChecked) {
-        errorDiv.style.display = 'none';
-        servicesGroup.style.borderColor = '';
-    } else {
-        errorDiv.style.display = 'block';
-        servicesGroup.style.borderColor = '#e74c3c';
+(function(){
+  var PHONE = '16603514699';
+  var EMAIL = 'MoveOverKC@gmail.com';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ---- truck motion + arrival ---- */
+  var rollTimer;
+  window.addEventListener('scroll', function(){
+    document.body.classList.add('rolling');
+    clearTimeout(rollTimer);
+    rollTimer = setTimeout(function(){ document.body.classList.remove('rolling'); }, 180);
+  }, {passive:true});
+
+  if ('IntersectionObserver' in window){
+    var arr = new IntersectionObserver(function(es){
+      es.forEach(function(e){ document.body.classList.toggle('arrived', e.isIntersecting); });
+    }, {threshold:.3});
+    arr.observe(document.getElementById('arrival'));
+
+    var rev = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); rev.unobserve(e.target); } });
+    }, {threshold:.18});
+    document.querySelectorAll('.reveal').forEach(function(el){ rev.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---- the box: chat thread ---- */
+  var thread = document.getElementById('thread');
+  var chipsEl = document.getElementById('chips');
+  var inputrow = document.getElementById('inputrow');
+  var input = document.getElementById('userinput');
+  var sendbtn = document.getElementById('sendbtn');
+  var state = { service:'', detail:'', name:'', date:'', from:'', to:'' };
+  var inputHandler = null;
+
+  function scrollDown(){ thread.scrollTop = thread.scrollHeight; }
+
+  function stamp(text){
+    var t = document.createElement('div');
+    t.className = 'tstamp'; t.textContent = text;
+    thread.appendChild(t); scrollDown();
+  }
+
+  function bubble(who, text, cls){
+    var row = document.createElement('div');
+    row.className = 'row ' + who;
+    var b = document.createElement('div');
+    b.className = 'bubble' + (cls ? ' ' + cls : '');
+    b.textContent = text;
+    row.appendChild(b);
+    thread.appendChild(row); scrollDown();
+    return row;
+  }
+
+  function meSay(text){
+    bubble('me', text);
+    var old = thread.querySelector('.delivered');
+    if (old) old.remove();
+    var d = document.createElement('div');
+    d.className = 'delivered'; d.textContent = 'Delivered';
+    thread.appendChild(d); scrollDown();
+  }
+
+  function themSay(msgs, done){
+    var list = Array.isArray(msgs) ? msgs.slice() : [msgs];
+    function next(){
+      if (!list.length){ if (done) done(); return; }
+      var msg = list.shift();
+      if (reduced){
+        if (typeof msg === 'object') bubble('them', msg.text, msg.cls);
+        else bubble('them', msg);
+        next(); return;
+      }
+      var t = document.createElement('div');
+      t.className = 'row them typing';
+      t.innerHTML = '<div class="bubble"><i></i><i></i><i></i></div>';
+      thread.appendChild(t); scrollDown();
+      setTimeout(function(){
+        t.remove();
+        if (typeof msg === 'object') bubble('them', msg.text, msg.cls);
+        else bubble('them', msg);
+        setTimeout(next, 300);
+      }, 620);
     }
-    
-    return isChecked;
-}
+    next();
+  }
 
-function validateLoadingType() {
-    const loadingCheckbox = document.getElementById('needLoading');
-    if (!loadingCheckbox.checked) return true; // Only validate if loading service is selected
-    
-    const loadingTypeCheckboxes = document.querySelectorAll('input[name="loading_type[]"]');
-    const errorDiv = document.getElementById('loadingTypeError');
-    const loadingTypeGroup = document.getElementById('loadingTypeGroup');
-    
-    let isChecked = false;
-    loadingTypeCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            isChecked = true;
-        }
-    });
-    
-    if (isChecked) {
-        errorDiv.style.display = 'none';
-        loadingTypeGroup.style.borderColor = '';
-    } else {
-        errorDiv.style.display = 'block';
-        loadingTypeGroup.style.borderColor = '#e74c3c';
-    }
-    
-    return isChecked;
-}
-
-function validateHeavyItems() {
-    const loadingCheckbox = document.getElementById('needLoading');
-    if (!loadingCheckbox.checked) return true; // Only validate if loading service is selected
-    
-    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]');
-    const errorDiv = document.getElementById('heavyItemsError');
-    const heavyItemsGroup = document.getElementById('heavyItemsGroup');
-    
-    let isChecked = false;
-    heavyItemCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            isChecked = true;
-        }
-    });
-    
-    if (isChecked) {
-        errorDiv.style.display = 'none';
-        heavyItemsGroup.style.borderColor = '';
-    } else {
-        errorDiv.style.display = 'block';
-        heavyItemsGroup.style.borderColor = '#e74c3c';
-    }
-    
-    return isChecked;
-}
-
-function validateTruck() {
-    const loadingCheckbox = document.getElementById('needLoading');
-    const bothLoadingUnloading = document.getElementById('bothLoadingUnloading');
-    if (!loadingCheckbox.checked || !bothLoadingUnloading.checked) return true;
-    
-    const truckCheckboxes = document.querySelectorAll('input[name="truck[]"]');
-    const errorDiv = document.getElementById('truckError');
-    const truckGroup = document.getElementById('truckGroup');
-    
-    let isChecked = false;
-    truckCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            isChecked = true;
-        }
-    });
-    
-    if (isChecked) {
-        errorDiv.style.display = 'none';
-        truckGroup.style.borderColor = '';
-    } else {
-        errorDiv.style.display = 'block';
-        truckGroup.style.borderColor = '#e74c3c';
-    }
-    
-    return isChecked;
-}
-
-function validatemovingEquipmentItems() {
-    // This is optional equipment, so no validation needed
-    // Just handle the quantity input visibility
-    const checkbox = event.target;
-    const qtyInput = checkbox.parentNode.querySelector('.quantity-input');
-    if (qtyInput) {
-        qtyInput.classList.toggle('hidden', !checkbox.checked);
-        if (!checkbox.checked) qtyInput.value = '';
-    }
-}
-
-function validatePackingSupplies(){
-    const checkbox = event.target;
-    const qtyInput = checkbox.parentNode.querySelector('.quantity-input');
-    if (qtyInput) {
-        qtyInput.classList.toggle('hidden', !checkbox.checked);
-        if (!checkbox.checked) qtyInput.value = '';
-    }
-}
-
-function handleLoadingType() {
-    const onlyLoading = document.getElementById('onlyLoading');
-    const onlyUnloading = document.getElementById('onlyUnloading');
-    const bothLoadingUnloading = document.getElementById('bothLoadingUnloading');
-    
-    // Only allow one selection
-    const loadingTypeCheckboxes = document.querySelectorAll('input[name="loading_type[]"]');
-    loadingTypeCheckboxes.forEach(cb => {
-        if (cb !== event.target) {
-            cb.checked = false;
-        }
-    });
-    
-    // Show/hide truck section based on selection
-    const truckSection = document.getElementById('truckSection');
-    if (bothLoadingUnloading.checked) {
-        truckSection.classList.remove('hidden');
-    } else {
-        truckSection.classList.add('hidden');
-        // Clear truck selections when hidden
-        const truckCheckboxes = document.querySelectorAll('input[name="truck[]"]');
-        truckCheckboxes.forEach(cb => cb.checked = false);
-        validateTruck();
-    }
-    
-    // Handle address requirements and location details
-    const startAddressGroup = document.getElementById('startAddressGroup');
-    const endAddressGroup = document.getElementById('endAddressGroup');
-    const startAddress = document.getElementById('startAddress');
-    const endAddress = document.getElementById('endAddress');
-    const startLocationDetails = document.getElementById('startLocationDetails');
-    const endLocationDetails = document.getElementById('endLocationDetails');
-    
-    if (onlyLoading.checked) {
-        // Only Loading: hide ending address and ending location details
-        endAddressGroup.classList.add('hidden');
-        endAddress.removeAttribute('required');
-        endAddress.value = '';
-        endLocationDetails.classList.add('hidden');
-        
-        startAddressGroup.classList.remove('hidden');
-        startAddress.setAttribute('required', 'required');
-        startLocationDetails.classList.remove('hidden');
-
-        requireEndLocationDetails(false);
-        requireStartLocationDetails(true);
-    } else if (onlyUnloading.checked) {
-        // Only Unloading: hide starting address and starting location details
-        startAddressGroup.classList.add('hidden');
-        startAddress.removeAttribute('required');
-        startAddress.value = '';
-        startLocationDetails.classList.add('hidden');
-        
-        endAddressGroup.classList.remove('hidden');
-        endAddress.setAttribute('required', 'required');
-        endLocationDetails.classList.remove('hidden');
-
-        requireEndLocationDetails(true);
-        requireStartLocationDetails(false);
-    } else if (bothLoadingUnloading.checked) {
-        // Both: show both addresses and location details
-        startAddressGroup.classList.remove('hidden');
-        endAddressGroup.classList.remove('hidden');
-        startAddress.setAttribute('required', 'required');
-        endAddress.setAttribute('required', 'required');
-        startLocationDetails.classList.remove('hidden');
-        endLocationDetails.classList.remove('hidden');
-
-        requireEndLocationDetails(true);
-        requireStartLocationDetails(true);
-    } else {
-        // No selection: show both but don't require
-        startAddressGroup.classList.remove('hidden');
-        endAddressGroup.classList.remove('hidden');
-        startLocationDetails.classList.remove('hidden');
-        endLocationDetails.classList.remove('hidden');
-
-        requireEndLocationDetails(false);
-        requireStartLocationDetails(false);
-    }
-}
-
-
-const endPropertyType = document.getElementById('endPropertyType');
-const endStairs = document.getElementById('endStairs');
-const endFloor = document.getElementById('endFloor');
-const endElevator = document.getElementById('endElevator');
-const endParking = document.getElementById('endParking');
-
-function requireEndLocationDetails(value){
-    if(value === true){
-        endPropertyType.setAttribute('required', 'required');
-        endStairs.setAttribute('required', 'required');
-        endFloor.setAttribute('required', 'required');
-        endElevator.setAttribute('required', 'required');
-        endParking.setAttribute('required', 'required');
-    }
-    else{
-        endPropertyType.removeAttribute('required');
-        endStairs.removeAttribute('required');
-        endFloor.removeAttribute('required');
-        endElevator.removeAttribute('required');
-        endParking.removeAttribute('required');
-    }
-}
-
-const startPropertyType = document.getElementById('startPropertyType');
-const startStairs = document.getElementById('startStairs');
-const startFloor = document.getElementById('startFloor');
-const startElevator = document.getElementById('startElevator');
-const startParking = document.getElementById('startParking');
-
-function requireStartLocationDetails(value){
-    if(value === true){
-        startPropertyType.setAttribute('required', 'required');
-        startStairs.setAttribute('required', 'required');
-        startFloor.setAttribute('required', 'required');
-        startElevator.setAttribute('required', 'required');
-        startParking.setAttribute('required', 'required');
-    }
-    else{
-        startPropertyType.removeAttribute('required');
-        startStairs.removeAttribute('required');
-        startFloor.removeAttribute('required');
-        startElevator.removeAttribute('required');
-        startParking.removeAttribute('required');
-    }
-}
-
-
-function handleNoHeavyItems(checkbox) {
-    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
-    
-    if (checkbox.checked) {
-        // If "No heavy items" is checked, uncheck all other heavy items
-        heavyItemCheckboxes.forEach(cb => {
-            cb.checked = false;
-            const qtyInput = cb.parentNode.querySelector('.quantity-input');
-            if (qtyInput) {
-                qtyInput.classList.add('hidden');
-                qtyInput.value = '';
-            }
-        });
-    }
-}
-
-function toggleSection(sectionId, checkbox) {
-    const section = document.getElementById(sectionId);
-    const isVisible = checkbox.checked;
-    
-    section.classList.toggle('hidden', !isVisible);
-    
-    // Handle conditional required fields
-    const conditionalFields = section.querySelectorAll('[data-conditional-required="' + sectionId + '"]');
-    conditionalFields.forEach(field => {
-        if (isVisible) {
-            field.setAttribute('required', 'required');
-        } else {
-            field.removeAttribute('required');
-            field.value = '';
-        }
-    });
-    
-    // Clear loading section specific data when hidden
-    if (sectionId === 'loadingSection' && !isVisible) {
-        const heavyItemCheckboxes = section.querySelectorAll('input[name="heavy_items[]"]');
-        heavyItemCheckboxes.forEach(cb => {
-            cb.checked = false;
-            const qtyInput = cb.parentNode.querySelector('.quantity-input');
-            if (qtyInput) {
-                qtyInput.classList.add('hidden');
-                qtyInput.value = '';
-            }
-        });
-        const truckCheckboxes = section.querySelectorAll('input[name="truck[]"]');
-        truckCheckboxes.forEach(cb => {
-            cb.checked = false;
-        });
-        const loadingTypeCheckboxes = section.querySelectorAll('input[name="loading_type[]"]');
-        loadingTypeCheckboxes.forEach(cb => {
-            cb.checked = false;
-        });
-        
-        // Reset address requirements
-        const startAddress = document.getElementById('startAddress');
-        const endAddress = document.getElementById('endAddress');
-        const startAddressGroup = document.getElementById('startAddressGroup');
-        const endAddressGroup = document.getElementById('endAddressGroup');
-        
-        startAddressGroup.classList.remove('hidden');
-        endAddressGroup.classList.remove('hidden');
-        startAddress.setAttribute('required', 'required');
-        endAddress.setAttribute('required', 'required');
-        
-        validateHeavyItems();
-        validateTruck();
-        validateLoadingType();
-    }
-    
-    // Show/hide quantity inputs for heavy items - only add listeners once
-    if (sectionId === 'loadingSection' && isVisible) {
-        const heavyItemCheckboxes = section.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
-        heavyItemCheckboxes.forEach(cb => {
-            // Remove existing listeners to prevent duplicates
-            cb.removeEventListener('change', handleHeavyItemChange);
-            cb.addEventListener('change', handleHeavyItemChange);
-        });
-    }
-}
-
-function handleHeavyItemChange() {
-    const qtyInput = this.parentNode.querySelector('.quantity-input');
-    if (qtyInput) {
-        qtyInput.classList.toggle('hidden', !this.checked);
-        if (!this.checked) qtyInput.value = '';
-    }
-    
-    // If any other heavy item is selected, uncheck "No heavy items"
-    if (this.checked) {
-        document.getElementById('noheavy').checked = false;
-    }
-}
-
-// Form validation
-document.getElementById('movingForm').addEventListener('submit', function(e) {
-    // First check if at least one service is selected
-    if (!validateServices()) {
-        e.preventDefault();
-        document.getElementById('servicesGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  function setChips(items){
+    chipsEl.innerHTML = '';
+    chipsEl.style.display = 'flex';
+    inputrow.style.display = 'none';
+    items.forEach(function(it){
+      if (it.href){
+        var a = document.createElement('a');
+        a.className = 'chip ' + (it.cls || '');
+        a.textContent = it.t;
+        a.href = it.href;
+        a.style.textDecoration = 'none';
+        chipsEl.appendChild(a);
         return;
-    }
-    
-    // Check loading type validation if loading service is selected
-    if (document.getElementById('needLoading').checked && !validateLoadingType()) {
-        e.preventDefault();
-        document.getElementById('loadingTypeGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-    }
-    
-    // Check heavy items validation if loading service is selected
-    if (document.getElementById('needLoading').checked && !validateHeavyItems()) {
-        e.preventDefault();
-        document.getElementById('heavyItemsGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-    }
-    
-    // Check truck validation if loading service is selected and both loading/unloading is selected
-    if (document.getElementById('needLoading').checked && document.getElementById('bothLoadingUnloading').checked && !validateTruck()) {
-        e.preventDefault();
-        document.getElementById('truckGroup').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-    }
-
-    // Then check other required fields
-    const requiredFields = this.querySelectorAll('[required]');
-    let isValid = true;
-    let firstInvalidField = null;
-    
-    requiredFields.forEach(field => {
-        if (!field.value.trim()) {
-            isValid = false;
-            field.style.borderColor = '#e74c3c';
-            if (!firstInvalidField) {
-                firstInvalidField = field;
-            }
-        } else {
-            field.style.borderColor = '#27ae60';
-        }
+      }
+      var b = document.createElement('button');
+      b.className = 'chip ' + (it.cls || '');
+      b.type = 'button';
+      b.textContent = it.t;
+      b.onclick = function(){
+        meSay(it.say || it.t);
+        chipsEl.innerHTML = '';
+        it.go();
+      };
+      chipsEl.appendChild(b);
     });
-    
-    if (!isValid) {
-        e.preventDefault();
-        alert('Please fill in all required fields (marked with *).');
-        if (firstInvalidField) {
-            firstInvalidField.focus();
-            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    }
-});
+  }
 
-// Initialize form on page load
-document.addEventListener('DOMContentLoaded', function() {
-    setMinDate();
+  function askInput(placeholder, onValue){
+    chipsEl.style.display = 'none';
+    inputrow.style.display = 'flex';
+    input.value = '';
+    input.placeholder = placeholder;
+    inputHandler = function(){
+      var val = input.value.trim();
+      if (!val) return;
+      inputrow.style.display = 'none';
+      meSay(val);
+      onValue(val);
+    };
+  }
+  sendbtn.onclick = function(){ if (inputHandler) inputHandler(); };
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' && inputHandler) inputHandler();
+  });
 
-    // Set up heavy item checkboxes with proper event listeners
-    const heavyItemCheckboxes = document.querySelectorAll('input[name="heavy_items[]"]:not(#noheavy)');
-    heavyItemCheckboxes.forEach(cb => {
-        cb.addEventListener('change', handleHeavyItemChange);
+  function firstChips(){
+    setChips([
+      {t:'Moving my whole place', go:whole},
+      {t:'Heavy item(s) 🏋️', go:heavy},
+      {t:'Junk removal 🚮', go:junk},
+      {t:'Packing help 📦', go:pack},
+      {t:'Rearranging furniture 🛋️', go:rearr}
+    ]);
+  }
+
+  function mainChips(){
+    setChips([
+      {t:'Get a quote →', cls:'primary', go:qName},
+      {t:'What area do you cover?', go:area},
+      {t:'📞 Call instead', href:'tel:' + PHONE, cls:'green'},
+      {t:'Start over', cls:'quiet', say:'Start over', go:restart}
+    ]);
+  }
+
+  function start(){
+    var d = new Date(), h = d.getHours(), m = d.getMinutes();
+    stamp('Today ' + ((h % 12) || 12) + ':' + (m < 10 ? '0' : '') + m);
+    themSay([
+      'Hey! 👋 Move Over KC here — you made it to the new place.',
+      'Ready to book your own move? What\'s the job?'
+    ], firstChips);
+  }
+
+  function whole(){
+    state.service = 'Full move (loading, hauling, unloading)';
+    themSay([
+      'Easy. We load, we haul, we unload — your truck or ours. 🚚',
+      'Stairs, storage units, third-floor walk-ups… all fine.'
+    ], mainChips);
+  }
+
+  function heavy(){
+    state.service = 'Heavy item(s)';
+    themSay([
+      'Pianos, safes, appliances, treadmills — the fun stuff. 💪',
+      'Stairs involved?'
+    ], function(){
+      setChips([
+        {t:'Yes… stairs 😬', go:function(){
+          state.detail = 'stairs involved';
+          themSay(["That's exactly why you text us and not your brother-in-law. Extra crew, straps, mattress bags — zero wall scuffs."], mainChips);
+        }},
+        {t:'Nope, ground floor', go:function(){
+          state.detail = 'ground floor';
+          themSay(['Even easier. 😎'], mainChips);
+        }}
+      ]);
     });
-});
+  }
 
-function setMinDate() {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    
-    const minDate = tomorrow.toISOString().split('T')[0];
-    
-    document.getElementById('moveDate').setAttribute('min', minDate);
-    document.getElementById('packingDate').setAttribute('min', minDate);
-    document.getElementById('rearrangingDate').setAttribute('min', minDate);
-    document.getElementById('unpackingDate').setAttribute('min', minDate);
-}
+  function junk(){
+    state.service = 'Junk removal';
+    themSay([
+      'Tell us what goes — furniture, appliances, the garage pile.',
+      'We haul it to the dump or donation. Gone. 🗑️'
+    ], mainChips);
+  }
+
+  function pack(){
+    state.service = 'Packing help';
+    themSay([
+      'We bring boxes, tape, paper and bubble wrap, and pack room by room. 📦',
+      'Fragile and high-value stuff gets flagged and wrapped extra.'
+    ], mainChips);
+  }
+
+  function rearr(){
+    state.service = 'Furniture rearranging';
+    themSay([
+      'New layout, same address — we shift the big pieces between rooms or floors.',
+      'No scuffed walls, no thrown-out backs. 🛋️'
+    ], mainChips);
+  }
+
+  function area(){
+    themSay([
+      'The whole KC metro — both sides of the state line. 🗺️',
+      'Outside it? Ask. We travel.'
+    ], mainChips);
+  }
+
+  function qName(){
+    themSay(["Let's do it. What's your name?"], function(){
+      askInput('Your name…', function(v){ state.name = v; qDate(); });
+    });
+  }
+
+  function qDate(){
+    themSay(['When are we doing this, ' + state.name.split(' ')[0] + '?'], function(){
+      setChips([
+        {t:'This week', go:function(){ state.date='This week'; qFrom(); }},
+        {t:'This month', go:function(){ state.date='This month'; qFrom(); }},
+        {t:'Flexible', go:function(){ state.date='Flexible'; qFrom(); }},
+        {t:'Type a date', say:'Let me type it', go:function(){
+          askInput('e.g. Aug 9', function(v){ state.date = v; qFrom(); });
+        }}
+      ]);
+    });
+  }
+
+  function qFrom(){
+    themSay(['Where from? City or zip.'], function(){
+      askInput('e.g. Raytown / 64133', function(v){ state.from = v; qTo(); });
+    });
+  }
+
+  function qTo(){
+    themSay(['And where to?'], function(){
+      askInput('e.g. Liberty / 64068', function(v){ state.to = v; qDone(); });
+    });
+  }
+
+  function composeBody(){
+    return 'Hi, it\'s ' + state.name + '. Requesting a moving quote.\n'
+      + 'Job: ' + (state.service || 'Move') + (state.detail ? ' (' + state.detail + ')' : '') + '\n'
+      + 'Date: ' + state.date + '\n'
+      + 'From: ' + state.from + '\n'
+      + 'To: ' + state.to + '\n'
+      + '(Sent from moveoverkc.com)';
+  }
+
+  function qDone(){
+    var summary = 'TO: Move Over KC\n'
+      + 'NAME: ' + state.name + '\n'
+      + 'JOB: ' + (state.service || 'Move') + (state.detail ? ' — ' + state.detail : '') + '\n'
+      + 'DATE: ' + state.date + '\n'
+      + 'FROM: ' + state.from + '\n'
+      + 'TO: ' + state.to;
+    themSay([
+      'Perfect. Here\'s your text, ready to go:',
+      {text: summary, cls:'summary'},
+      'One tap opens your messages — hit send and it lands on our phone for real. 📲',
+      'Pro tip: after that, text us photos of the items, stairs and doorways. We plan the crew off what we see.'
+    ], function(){
+      var body = encodeURIComponent(composeBody());
+      setChips([
+        {t:'💬 Send it as a real text', cls:'green', href:'sms:' + PHONE + '?&body=' + body},
+        {t:'✉️ Email instead', href:'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Moving Quote — ' + state.name) + '&body=' + body},
+        {t:'📞 Call instead', href:'tel:' + PHONE},
+        {t:'Start over', cls:'quiet', say:'Start over', go:restart}
+      ]);
+    });
+  }
+
+  function restart(){
+    state = { service:'', detail:'', name:'', date:'', from:'', to:'' };
+    themSay(['From the top — what\'s the job?'], firstChips);
+  }
+
+  /* boot the chat when it scrolls into view (or immediately if IO unsupported) */
+  var booted = false;
+  function boot(){ if (!booted){ booted = true; start(); } }
+  if ('IntersectionObserver' in window){
+    var chatIO = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ boot(); chatIO.disconnect(); } });
+    }, {threshold:.25});
+    chatIO.observe(document.querySelector('.phone'));
+  } else { boot(); }
+})();
 </script>
 
 </body>
