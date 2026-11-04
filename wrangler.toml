@@ -1,0 +1,26 @@
+# Cloudflare Worker settings for the Move Over KC backend.
+# Only needed if you deploy with the command line (see README.md, Part 3, Option B).
+# If you use the Cloudflare dashboard instead (Option A), enter these same values there.
+
+name = "moveoverkc-api"
+main = "worker.js"
+compatibility_date = "2025-06-01"
+
+[vars]
+# Your live website address, with no slash at the end.
+SITE_URL = "https://moveoverkc.com"
+# Every address your site can be reached at, separated by commas.
+ALLOWED_ORIGINS = "https://moveoverkc.com,https://www.moveoverkc.com"
+# The phone that receives the texts.
+OWNER_PHONE = "+16603514699"
+# From your Twilio account (the number must be a Twilio number you own, like +18165550123).
+TWILIO_ACCOUNT_SID = ""
+TWILIO_FROM = ""
+
+# Secrets are NOT stored in this file. Set them with:
+#   npx wrangler secret put TWILIO_AUTH_TOKEN
+#   npx wrangler secret put ADMIN_KEY
+
+[[kv_namespaces]]
+binding = "MOKC"
+id = "PASTE_YOUR_KV_NAMESPACE_ID_HERE"
