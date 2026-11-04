@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact and Free Quote | Move Over KC</title>
+<meta name="description" content="Request a free quote from Move Over KC. Send your name, phone, email, and a message, or call or text 660-351-4699.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="images/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Contact</span>
+      <h1>Let's talk about your move.</h1>
+      <p class="lead">Fill out the form and it goes straight to the owner's phone, or call or text any time.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split" style="align-items:start">
+      <form class="form-card" id="quote" data-endpoint="/contact" data-success="Thank you! Your message just landed on the owner's phone. Expect a reply very soon." aria-labelledby="quote-title">
+        <h2 id="quote-title">Get your free quote</h2>
+        <p class="sub">The more detail you share, the better we can help.</p>
+
+        <div class="field">
+          <label for="c-name">Your name</label>
+          <input id="c-name" name="name" type="text" autocomplete="name" placeholder="Jane Smith" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="c-phone">Phone number</label>
+            <input id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="816-555-0123" required>
+          </div>
+          <div class="field">
+            <label for="c-email">Email <span class="opt">(optional)</span></label>
+            <input id="c-email" name="email" type="email" autocomplete="email" placeholder="you@email.com">
+          </div>
+        </div>
+        <div class="field">
+          <label for="c-message">Your message</label>
+          <textarea id="c-message" name="message" placeholder="What you are moving or hauling, where from and to, and your ideal date."></textarea>
+        </div>
+        <div class="hp" aria-hidden="true"><label>Company <input class="hp-input" type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+        <button class="btn btn-primary btn-block" type="submit">Send my request</button>
+        <div class="form-status" role="status" aria-live="polite"></div>
+        <p class="form-note">We never sell or share your information. See our <a href="privacy.html">privacy page</a>.</p>
+      </form>
+
+      <div class="reveal">
+        <h2>Prefer a direct line?</h2>
+        <p class="lead">Reach us the way that is easiest for you.</p>
+        <ul class="contact-list">
+          <li>
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
+            <div><strong>Call or text</strong><a href="tel:+16603514699">660-351-4699</a></div>
+          </li>
+          <li>
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+            <div><strong>Based in</strong><span>Lee's Summit, Missouri, serving the greater Kansas City area</span></div>
+          </li>
+          <li>
+            <span class="icon-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <div><strong>Hours</strong><span><mark class="fill">[[FILL IN: your hours, or "Call or text any time"]]</mark></span></div>
+          </li>
+        </ul>
+        <div class="panel contact-logo-panel">
+          <img src="images/logo-full.png" width="900" height="788" alt="Move Over KC, residential and commercial moving, 660-351-4699, MoveOverKC.com" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
